@@ -1,14 +1,20 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
-const doctorRouter = require('./Routers/doctorRoute');
-const { temCotroller } = require('./controllers/Doctorcontroller');
+const Router = require('./Routers/Routes');
+const { temCotroller } = require('./controllers/DockterController');
+
 const db = require('./utils/db');
 const dotenv = require("dotenv");
+//middle ware to handle the error and send responce in structured  way
+const ErrorMiddleware = require('./middlewares/ErrorControlMiddleWare');
 //To make use of the env variables
 dotenv.config();
 app.use(express.json());
-app.use("/doc", temCotroller);
+app.use(Router);
+//useing the middelware to error handiling
+app.use(ErrorMiddleware);
+
 
 
 db().then(() => {
