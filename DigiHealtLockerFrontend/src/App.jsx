@@ -1,34 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React, { Suspense, lazy } from "react"
+import Home from "./components/Home";
+import { Outlet, Route, RouterProvider, createBrowserRouter,createRoutesFromElements,BrowserRouter,Routes } from "react-router-dom";
+import Error from "./components/Error";
+import PatientLogin from "./components/pages/patient/PatientLogin"
+import PatientRegister from "./components/pages/patient/PatientRegister"
+
+// const App = () => {
+//   return (
+//     <>
+//       <PatientLogin/>
+//     </>
+//   )
+// }
+
+//  export default App
+
+// function AppLayout() {
+//   return (
+//     <>
+//       <Outlet/>
+//     </>
+//   )
+// }
+
+// const appRouter = createBrowserRouter([
+//   {
+//     path:"/",
+//     element:<AppLayout/>,
+//     errorElement:<Error/>,
+//     children:[
+//       {
+//         path:"/",
+//         element:<Home/>,
+//       },
+//       {
+//         path:"/login",
+//         children:<PatientLogin/>
+//       },
+//     ],
+//   },
+// ])
+
+// function App({routes}) {
+
+//   return (
+//     <>
+//       <RouterProvider router={appRouter}/>
+//     </>
+//   );
+// }
+
+// export default App;
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<PatientLogin />} />
+      <Route path="/signup" element={<PatientRegister />} />
+
+      <Route path="*" element={<Error />} />
+    </Routes>
+  </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
