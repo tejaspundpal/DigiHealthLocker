@@ -1,69 +1,38 @@
-import React, { Suspense, lazy } from "react"
+import React from "react"
 import Home from "./components/Home";
-import { Outlet, Route, RouterProvider, createBrowserRouter,createRoutesFromElements,BrowserRouter,Routes } from "react-router-dom";
+import { Route, BrowserRouter, Routes, } from "react-router-dom";
+
 import Error from "./components/Error";
 import PatientLogin from "./components/pages/patient/PatientLogin"
 import PatientRegister from "./components/pages/patient/PatientRegister"
-
-// const App = () => {
-//   return (
-//     <>
-//       <PatientLogin/>
-//     </>
-//   )
-// }
-
-//  export default App
-
-// function AppLayout() {
-//   return (
-//     <>
-//       <Outlet/>
-//     </>
-//   )
-// }
-
-// const appRouter = createBrowserRouter([
-//   {
-//     path:"/",
-//     element:<AppLayout/>,
-//     errorElement:<Error/>,
-//     children:[
-//       {
-//         path:"/",
-//         element:<Home/>,
-//       },
-//       {
-//         path:"/login",
-//         children:<PatientLogin/>
-//       },
-//     ],
-//   },
-// ])
-
-// function App({routes}) {
-
-//   return (
-//     <>
-//       <RouterProvider router={appRouter}/>
-//     </>
-//   );
-// }
-
-// export default App;
+import MainComponet from "./components/MainComponet";
 
 function App() {
 
   return (
-    <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<PatientLogin />} />
-      <Route path="/signup" element={<PatientRegister />} />
 
-      <Route path="*" element={<Error />} />
-    </Routes>
-  </BrowserRouter>
+    <>
+
+
+      <Routes>
+        <Route path="/" exact element={<MainComponet />} >
+          <Route index element={<Home />} />
+          <Route path="/login" element={<PatientLogin />} />
+          <Route path="/signup" element={<PatientRegister />} />
+        </Route>
+        <Route path="*" element={<Error />} />
+      </Routes >
+
+
+
+
+
+
+
+    </>
+
+
+
   );
 }
 

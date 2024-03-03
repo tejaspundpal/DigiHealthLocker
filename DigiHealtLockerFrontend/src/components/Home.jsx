@@ -7,10 +7,10 @@ import Team from "./Team";
 function Home() {
   return (
     <>
-      <Header/>
-      <Body/>
-      <Team/>
-      <Footer/>
+      <Header />
+      <Body />
+      <Team />
+      <Footer />
     </>
   )
 }
