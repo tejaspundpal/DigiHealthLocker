@@ -4,8 +4,7 @@ const people = [
     {
         name: 'Prathamesh Patil',
         role: 'Developer',
-        imageUrl:
-            'https://media.licdn.com/dms/image/D4D03AQGySHPCht265A/profile-displayphoto-shrink_100_100/0/1702826429380?e=1714003200&v=beta&t=u1qTLnk3CurCub9EihMy7-Pn4Rr6hjAnRQAFdOZ_BJE',
+        imageUrl:'https://media.licdn.com/dms/image/D5603AQFxB51yEVg0XA/profile-displayphoto-shrink_100_100/0/1709230732551?e=1715212800&v=beta&t=Vlvj2cMNkOW8v4DY_afTHfjKZmDie703R5UvMwWaDDM'
     },
     {
         name: 'Tejas Pundpal',
@@ -16,14 +15,12 @@ const people = [
     {
         name: 'Purshottam Rajpurohit',
         role: 'Developer',
-        imageUrl:
-            'https://media.licdn.com/dms/image/D4D35AQGfFKsZDmsnIA/profile-framedphoto-shrink_100_100/0/1697950868319?e=1709362800&v=beta&t=6T4h0N9Mrhy5yu533WS-_L3D7L33Ti6bJYqNmmsl0pk',
+        imageUrl:'https://media.licdn.com/dms/image/D4D35AQGfFKsZDmsnIA/profile-framedphoto-shrink_100_100/0/1697950868319?e=1710298800&v=beta&t=2gxhQecZ-2cs-GtXH8yTa8VB92kf2am0gVdJxUXCFZs'
     },
     {
         name: 'Vedang Surnis',
         role: 'Developer',
-        imageUrl:
-            'https://media.licdn.com/dms/image/D5635AQFq89QN559hBg/profile-framedphoto-shrink_100_100/0/1691501816314?e=1709362800&v=beta&t=xXnJOhwRT904n-6MbDqesuM350_zDTuERrfbi_5s2eI',
+        imageUrl:'https://media.licdn.com/dms/image/C4D03AQFlqbkMRF3iGw/profile-displayphoto-shrink_100_100/0/1652674230387?e=1715212800&v=beta&t=iwsikXlZkmojHbFb1zHCjKlAKl0mGh2Su_xH7HwRsJ0'
     },
     {
         name: 'Kartik Thombare',
