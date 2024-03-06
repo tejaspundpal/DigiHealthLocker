@@ -16,7 +16,7 @@ export default function Header() {
     <>
       <div className="bg-white">
         <header className="absolute inset-x-0 top-0 z-50">
-          <nav className="flex items-center justify-between p-6 lg:px-8 bg-white shadow-md fixed z-10 w-full" aria-label="Global">
+          <nav className="flex items-center justify-between p-4 lg:px-8 bg-white shadow-md fixed z-10 w-full" aria-label="Global">
             <div className="flex lg:flex-1">
               <NavLink to="/" className="-m-1.5">
                 {/* <span className="sr-only">DigiHealthlocker</span> */}
@@ -39,20 +39,20 @@ export default function Header() {
             </div>
             <div className="hidden lg:flex lg:gap-x-12">
               {navigation.map((item) => (
-                <NavLink key={item.name} to={item.to} className="text-sm font-semibold leading-6 text-gray-900 hover:font-bold">
+                <NavLink key={item.name} to={item.to} className="text-sm font-semibold leading-6 text-gray-800 hover:font-bold hover:text-teal-700">
                   {item.name}
                 </NavLink>
               ))}
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-6">
               <NavLink
-                to="/login"
+                to="/patient/login"
                 className="rounded-md bg-teal-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
               >
                 Patient
               </NavLink>
               <NavLink
-                to='#'
+                to='/doctor/login'
                 className="rounded-md bg-teal-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
               >
                 Doctor
@@ -95,13 +95,13 @@ export default function Header() {
                   </div>
                   <div className="py-6">
                     <NavLink
-                      to="/signup"
+                      to="/patient/login"
                       className="rounded-md bg-teal-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                     >
                       Patient
                     </NavLink>
                     <NavLink
-                      to="/login"
+                      to="/doctor/login"
                       className="rounded-md bg-teal-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 ml-5"
                     >
                       Doctor
@@ -136,13 +136,13 @@ export default function Header() {
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <NavLink
-                  to="/signup"
+                  to="/patient/login"
                   className="rounded-md bg-teal-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                 >
                   Patient
                 </NavLink>
                 <NavLink
-                  to="#"
+                  to="/doctor/login"
                   className="rounded-md bg-teal-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                 >
                   Doctor
