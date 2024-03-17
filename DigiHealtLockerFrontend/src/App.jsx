@@ -11,6 +11,7 @@ import DoctorRegister from "./components/pages/doctor/DoctorRegister";
 import PatientDashboard from "./components/pages/patient/PatientDashboard";
 import PatientProfile from "./components/pages/patient/PatientProfile";
 import PatientAppointments from "./components/pages/patient/PatientAppointments";
+import AllAppointments from "./components/pages/patient/AllAppointments";
 import PatientInsurance from "./components/pages/patient/PatientInsurance";
 import Loader from "./components/Loader";
 const PatientLogin = lazy(() => import("./components/pages/patient/PatientLogin"));
@@ -22,14 +23,18 @@ function App() {
       <Routes>
         <Route path="/" exact element={<MainComponet />} >
           <Route index element={<Home />} />
-          <Route path="/patient/login" element={<Suspense fallback={<Loader/>}><PatientLogin/></Suspense>} />
-          <Route path="/doctor/login" element={<DoctorLogin/>} />
+          <Route path="/patient/login" element={<Suspense fallback={<Loader />}><PatientLogin /></Suspense>} />
+          <Route path="/doctor/login" element={<DoctorLogin />} />
           <Route path="/patient/register" element={<PatientRegister />} />
-          <Route path="/doctor/register" element={<DoctorRegister/>} />
-          <Route path="/patient/dashboard" element={<PatientDashboard/>} />
-          <Route path="/patient/profile" element={<PatientProfile/>} />
-          <Route path="/patient/appointments" element={<PatientAppointments/>} />
-          <Route path="/patient/insurance" element={<PatientInsurance/>} />
+          <Route path="/doctor/register" element={<DoctorRegister />} />
+          <Route path="/patient/dashboard" element={<PatientDashboard />} />
+          <Route path="/patient/profile" element={<PatientProfile />} />
+          <Route path="/patient/appointments" element={<PatientAppointments />} />
+          <Route path="/patient/appointments/allappointments" element={<AllAppointments />} />
+          {/* <Route path="/patient/appointments" element={<PatientAppointments />}>
+            <Route path="/patient/appointments/allappointments" element={<AllAppointments />} />
+          </Route> */}
+          <Route path="/patient/insurance" element={<PatientInsurance />} />
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>
