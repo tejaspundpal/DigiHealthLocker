@@ -1,12 +1,23 @@
-import React from 'react';
+import React,{useState} from 'react';
 import logo from '../../../assets/images/DigiHealthlockerlogo.png';
 import { NavLink } from 'react-router-dom';
 
 const DoctorLogin = () => {
+  const [doctorLog,setDoctorLog] = useState({
+    regNo:"",
+    password:"",
+  });
+
+  const handleInputChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    // console.log(name,value);
+    setDoctorLog({...doctorLog,[name]:value});
+  }
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <NavLink href="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+        <NavLink to="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
           <img className="h-20 mx-auto w-56" src={logo} alt="Logo" />
         </NavLink>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -17,11 +28,11 @@ const DoctorLogin = () => {
             <form className="space-y-4 md:space-y-6" action="#">
               <div>
                 <label htmlFor="regNo" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Registration Number</label>
-                <input type="number" name="regNo" id="regNo" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-teal-500 dark:focus:border-teal-500" placeholder="Enter your registration number" required="" />
+                <input type="number" name="regNo" id="regNo" value={doctorLog.regNo} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-teal-500 dark:focus:border-teal-500" placeholder="Enter your registration number" required="" />
               </div>
               <div>
                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-teal-500 dark:focus:border-teal-500" required="" />
+                <input type="password" name="password" id="password" placeholder="••••••••" value={doctorLog.password} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-teal-500 dark:focus:border-teal-500" required="" />
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">

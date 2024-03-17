@@ -23,7 +23,7 @@ export default function Header() {
                 <img
                   className="h-10 w-auto"
                   src={logo}
-                  alt=""
+                  alt="logo"
                 />
               </NavLink>
             </div>
