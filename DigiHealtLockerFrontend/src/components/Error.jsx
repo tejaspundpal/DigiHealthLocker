@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouteError } from "react-router-dom";
 const Error = () => {
-
-
-
-
-
-
-
-    return (
+return (
 
         <>
             <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -19,11 +12,6 @@ const Error = () => {
                 </div>
             </div >
         </>
-
-
-
-
-
     );
 };
 
