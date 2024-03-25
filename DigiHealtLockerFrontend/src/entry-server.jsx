@@ -11,7 +11,7 @@ export function render(url) {
   const html = ReactDOMServer.renderToString(
     <StaticRouter location={url}>
       <App />
-    </StaticRouter >
+    </StaticRouter>
   )
   return { html }
 }
