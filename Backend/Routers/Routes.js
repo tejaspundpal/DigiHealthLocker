@@ -1,11 +1,15 @@
 const expres = require('express');
 const router = expres.Router();
-const { temCotroller, Registrationdoctor } = require('../controllers/DockterController');
-const { registrationpatient } = require('../controllers/PatientController');
+const { temCotroller, Registrationdoctor, loginOfDoctor } = require('../controllers/DockterController');
+const { registrationpatient, loginOfPatient } = require('../controllers/PatientController');
 const Validate = require('../middlewares/Validate-middleware');
-const VerificationRegisterrationschema = require('../validator/PatientRegsitartionValidator');
+const { VerificationRegisterrationschema, VerificationLoginschemaPatient } = require('../validator/PatientValidatorSchemas');
+const { VerificationRegisterrationschemaDoctor, VerificationLoginschemaDoctor } = require('../validator/DoctorValidationSchemas');
+
 
 router.get("/", temCotroller);
 router.post("/pregister", Validate(VerificationRegisterrationschema), registrationpatient);
-router.post("/dregister", Registrationdoctor);
+router.post("/dregister", Validate(VerificationRegisterrationschemaDoctor), Registrationdoctor);
+router.post("/plogin", Validate(VerificationLoginschemaPatient), loginOfPatient);
+router.post("/dlogin", Validate(VerificationLoginschemaDoctor), loginOfDoctor);
 module.exports = router;

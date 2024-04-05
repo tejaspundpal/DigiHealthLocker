@@ -1,5 +1,6 @@
 
 const PatientModel = require('../models/PatientSchema');
+const CompnaeringPassword = require('../utils/ComparingPassword');
 
 
 const registrationpatient = async (req, res) => {
@@ -32,4 +33,30 @@ const registrationpatient = async (req, res) => {
     }
 }
 
-module.exports = { registrationpatient };
+const loginOfPatient = async (req, res) => {
+    try {
+        const { aadharcardnumber, password } = req.body;
+        const user = await PatientModel.findOne({ aadharcardnumber });
+        if (!user) {
+            return res.staus(404).send({ result: false, message: "User not exists" })
+        }
+        const isMatch = await CompnaeringPassword(password, user.password);
+        if (!isMatch) {
+            return res.status(404).send({ result: false, message: "Enter correct cerditilas" });
+        }
+
+        const token = await user.generateWebTocken();
+
+        res.status(200).send({ result: true, message: "Login sucessfully" });
+
+
+    } catch (e) {
+        console.log(e);
+        next({
+            status: 400,
+            message: "Login unsuccessful server side error",
+        })
+    }
+}
+
+module.exports = { registrationpatient, loginOfPatient };
