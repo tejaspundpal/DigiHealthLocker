@@ -45,7 +45,7 @@ const DoctorLogin = () => {
                 </div>
                 <a href="#" className="text-sm font-medium text-teal-600 hover:underline dark:text-teal-500">Forgot password?</a>
               </div>
-              <button type="submit" className="w-full text-white bg-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800">Sign in</button>
+              <NavLink to="/doctor/dashboard"><button type="submit" className="mt-3 w-full text-white bg-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800">Sign in</button></NavLink>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don't have an account yet? <NavLink to="/doctor/register" className="font-medium text-teal-600 hover:underline dark:text-teal-500">Sign up</NavLink>
               </p>

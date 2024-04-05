@@ -6,20 +6,18 @@ import { NavLink } from 'react-router-dom'
 
 
 const user = {
-  name: 'Tejas',
-  email: 'tejas@gmail.com',
+  name: 'Tejasss',
+  email: 'tejasss@gmail.com',
   imageUrl:
     'https://media.licdn.com/dms/image/D5603AQFJr_J4S32dgw/profile-displayphoto-shrink_100_100/0/1695177682396?e=1714003200&v=beta&t=8TRhBdOkD7vu68qIstHCCUgn0i4VkRe7Yqn4YEsSokA',
 }
 const navigation = [
-  { name: 'Dashboard', href: '/patient/dashboard', current: true },
-  { name: 'Appointments', href: '/patient/appointments', current: false },
-  // { name: 'Insurance', href: '/patient/insurance', current: false },
-  // { name: 'Calendar', href: '#', current: false },
-  // { name: 'Reports', href: '/patient/report', current: false },
+  { name: 'Dashboard', href: '/doctor/dashboard', current: true },
+  { name: 'Appointments', href: '/doctor/appointments', current: false },
+  { name: 'Upload Document', href: '/doctor/upload', current: false },
 ]
 const userNavigation = [
-  // { name: 'Your Profile', href: '/patient/profile' },
+  // { name: 'Your Profile', href: '/doctor/profile' },
   { name: 'Sign out', href: '#' },
 ]
 
@@ -27,7 +25,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function PatientHeader() {
+export default function DoctorHeader() {
   return (
     <>
       <Disclosure as="nav" className="bg-white shadow-lg sticky top-0 z-50">
@@ -37,7 +35,7 @@ export default function PatientHeader() {
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <NavLink to='/patient/dashboard'><img
+                    <NavLink to='/doctor/dashboard'><img
                       className="h-10 w-auto"
                       src={logo}
                       alt="logo"

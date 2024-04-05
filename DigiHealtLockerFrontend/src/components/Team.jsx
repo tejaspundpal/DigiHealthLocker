@@ -13,20 +13,9 @@ const people = [
             'https://media.licdn.com/dms/image/D5603AQFJr_J4S32dgw/profile-displayphoto-shrink_100_100/0/1695177682396?e=1714003200&v=beta&t=8TRhBdOkD7vu68qIstHCCUgn0i4VkRe7Yqn4YEsSokA',
     },
     {
-        name: 'Purshottam Rajpurohit',
-        role: 'Developer',
-        imageUrl:'https://media.licdn.com/dms/image/D4D35AQGfFKsZDmsnIA/profile-framedphoto-shrink_100_100/0/1697950868319?e=1710298800&v=beta&t=2gxhQecZ-2cs-GtXH8yTa8VB92kf2am0gVdJxUXCFZs'
-    },
-    {
         name: 'Vedang Surnis',
         role: 'Developer',
-        imageUrl:'https://media.licdn.com/dms/image/C4D03AQFlqbkMRF3iGw/profile-displayphoto-shrink_100_100/0/1652674230387?e=1715212800&v=beta&t=iwsikXlZkmojHbFb1zHCjKlAKl0mGh2Su_xH7HwRsJ0'
-    },
-    {
-        name: 'Kartik Thombare',
-        role: 'Developer',
-        imageUrl:
-            'https://media.licdn.com/dms/image/D4D03AQHGCXRV26dodQ/profile-displayphoto-shrink_100_100/0/1706948746746?e=1714003200&v=beta&t=2ebNYcjlbXqICVmIIWTBpGfy3PsN-lGdXnkbkuCwIV8',
+        imageUrl:'https://media.licdn.com/dms/image/D5603AQHe8wFGNKOUXw/profile-displayphoto-shrink_100_100/0/1711101960512?e=1717632000&v=beta&t=R_YBk3Wxsh6evmkTJrT0s6sDVFQJOpZkfo4Gu9evN48'
     },
 ]
 
