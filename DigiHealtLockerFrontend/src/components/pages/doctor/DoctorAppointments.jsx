@@ -1,132 +1,57 @@
-import React, { useState } from 'react';
-import DoctorHeader from './DoctorHeader';
+import React from 'react'
+import DoctorHeader from './DoctorHeader'
+import doctorAllAppointments from '../../../utils/doctorAllAppointments'
+import { NavLink } from 'react-router-dom'
 
-function DoctorAppointments() {
-  const [formData, setFormData] = useState({
-    patientName: '',
-    patientAadharNo: '',
-    hospitalName: '',
-    department: '',
-    appointmentDate: '',
-    timeSlot: '',
-    problem: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission (e.g., send data to server)
-    console.log(formData);
-  };
-
+const DoctorAppointments = () => {
   return (
     <>
       <DoctorHeader />
-      <div className="container mx-auto mt-5">
-        <h1 className="text-3xl font-semibold text-center mb-8 text-teal-600">Add Appointment</h1>
-        <form onSubmit={handleSubmit} className="max-w-4xl mx-auto">
-          <div className="mb-4 flex flex-wrap">
-            <div className="w-full md:w-1/2 md:pl-2 mb-3">
-              <label htmlFor="patientName" className="block text-gray-700">Patient Name</label>
-              <input
-                type="text"
-                id="patientName"
-                name="patientName"
-                value={formData.patientName}
-                onChange={handleChange}
-                className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-teal-500"
-                required
-              />
-            </div>
-            <div className="w-full md:w-1/2 md:pl-2 mb-3">
-              <label htmlFor="patientAadharNo" className="block text-gray-700">Patient Aadhar No</label>
-              <input
-                type="text"
-                id="patientAadharNo"
-                name="patientAadharNo"
-                value={formData.patientAadharNo}
-                onChange={handleChange}
-                className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-teal-500"
-                required
-              />
-            </div>
-            <div className="w-full md:w-1/2 md:pl-2 mb-3">
-              <label htmlFor="hospitalName" className="block text-gray-700">Hospital Name</label>
-              <input
-                type="text"
-                id="hospitalName"
-                name="hospitalName"
-                value={formData.hospitalName}
-                onChange={handleChange}
-                className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-teal-500"
-                required
-              />
-            </div>
-            <div className="w-full md:w-1/2 md:pl-2 mb-3">
-              <label htmlFor="department" className="block text-gray-700">Department</label>
-              <input
-                type="text"
-                id="department"
-                name="department"
-                value={formData.department}
-                onChange={handleChange}
-                className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-teal-500"
-                required
-              />
-            </div>
-            <div className="w-full md:w-1/2 md:pl-2 mb-3">
-              <label htmlFor="appointmentDate" className="block text-gray-700">Appointment Date</label>
-              <input
-                type="date"
-                id="appointmentDate"
-                name="appointmentDate"
-                value={formData.appointmentDate}
-                onChange={handleChange}
-                className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-teal-500"
-                required
-              />
-            </div>
-            <div className="w-full md:w-1/2 md:pl-2 mb-3">
-              <label htmlFor="timeSlot" className="block text-gray-700">Time Slot</label>
-              <input
-                type="time"
-                id="timeSlot"
-                name="timeSlot"
-                value={formData.timeSlot}
-                onChange={handleChange}
-                className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-teal-500"
-                required
-              />
-            </div>
-            <div className="w-full md:w-1/2 md:pl-2">
-              <label htmlFor="problem" className="block text-gray-700">Problem</label>
-              <textarea
-                id="problem"
-                name="problem"
-                value={formData.problem}
-                onChange={handleChange}
-                rows="4"
-                className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-teal-500"
-                required
-              ></textarea>
-            </div>
-          </div>
-          <div className="mb-4 ml-2">
+      <div className="overflow-x-auto flex items-center justify-center">
+        <div>
+          <div className='mt-10 flex justify-between'>
+            <h1 className="text-3xl font-semibold text-center text-teal-600">Appointment List</h1>
             <button
               type="submit"
               className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded focus:outline-none focus:bg-teal-600"
-            >
-              Add Appointment
+            ><NavLink to="/doctor/appointments/addappointment">
+              Add Appointment</NavLink>
             </button>
           </div>
-        </form>
+          <table className="min-w-4xl bg-white shadow-lg rounded mt-5">
+            <thead className='border'>
+              <tr className="text-left  text-teal-600">
+                <th className="py-3 px-4">Appointment ID</th>
+                <th className="py-3 px-4">Patient Name</th>
+                <th className="py-3 px-4">Date</th>
+                <th className="py-3 px-4">Time</th>
+                <th className="py-3 px-4">Problem</th>
+                <th className="py-3 px-4">Status</th>
+                <th className="py-3 px-4">Details</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-700">
+              {doctorAllAppointments.map(appointment => (
+                <tr key={appointment.aadhar_no}>
+                  <td className="border-b py-3 px-4">{appointment.appointment_id}</td>
+                  <td className="border-b py-3 px-4">{appointment.patient_name}</td>
+                  <td className="border-b py-3 px-4">{appointment.appointment_date}</td>
+                  <td className="border-b py-3 px-4">{appointment.time_slot}</td>
+                  <td className="border-b py-3 px-4">{appointment.problem}</td>
+                  <td className="border-b py-3 px-4">
+                    <span className={appointment.status === 'Accepted' ? 'text-green-600' : appointment.status === 'Rejected' ? 'text-red-600' : 'text-yellow-500'}>
+                      {appointment.status}
+                    </span>
+                  </td>
+                  <td className="border-b py-3 px-4 underline text-sm hover:text-blue-600"><NavLink to={'appointmentdetails/' + appointment.aadhar_no}>view more</NavLink></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
-  );
+  )
 }
 
-export default DoctorAppointments;
+export default DoctorAppointments
