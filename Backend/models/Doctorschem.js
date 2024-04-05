@@ -52,6 +52,20 @@ const doctoerSchema = new mongoose.Schema({
 
         }
     ],
+    appointmnets: [
+        {
+            patientName: String,
+            patientAddharnumber: String,
+            appointmentDate: {
+                type: Date
+            },
+            time: {
+                type: String
+            },
+            problem: String
+
+        }
+    ],
     email: String,
     age: String,
     sex: String,

@@ -5,8 +5,8 @@ import logo from '../assets/images/DigiHealthlockerlogo.png'
 import { NavLink, BrowserRouter } from "react-router-dom";
 
 const navigation = [
-  { name: 'About', to: '/about' },
-  { name: 'Team', to: '/team' },
+  // { name: 'About', to: '/about' },
+  // { name: 'Team', to: '/team' },
 ]
 
 

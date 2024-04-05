@@ -5,6 +5,7 @@ import App from './App'
 
 
 export function render(url) {
+  // console.log(url);
   if (url !== "/") {
     url = "/" + url;
   }

@@ -19,6 +19,8 @@ import Loader from "./components/Loader";
 import DoctorAppointments from "./components/pages/doctor/DoctorAppointments";
 import DoctorProfile from "./components/pages/doctor/DoctorProfile";
 import DoctorUpload from "./components/pages/doctor/DoctorUpload";
+import AddAppointment from "./components/pages/doctor/AddAppointment";
+import DoctorAppointmentDetails from "./components/pages/doctor/DoctorAppointmentDetails";
 // const PatientLogin = lazy(() => import("./components/pages/patient/PatientLogin"));
 // const PatientRegister = lazy(() => import("./components/pages/patient/PatientRegister"));
 
@@ -35,8 +37,8 @@ function App() {
           <Route path="/doctor/register" element={<DoctorRegister />} />
           <Route path="/patient/dashboard" element={<PatientDashboard />} />
           <Route path="/patient/profile" element={<PatientProfile />} />
-          <Route path="/patient/appointments" element={<AllAppointments/>} />
-          <Route path="/patient/appointments/appointmentdetails/:appointmentId" element={<AppointmentDetails/>} />
+          <Route path="/patient/appointments" element={<AllAppointments />} />
+          <Route path="/patient/appointments/appointmentdetails/:appointmentId" element={<AppointmentDetails />} />
           {/* <Route path="/patient/appointments" exact element={<PatientAppointments />}>
             <Route path="allappointments" element={<AllAppointments />} />
           </Route> */}
@@ -44,8 +46,10 @@ function App() {
           <Route path="/patient/report" element={<PatientReport />} />
           <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
           <Route path="/doctor/appointments" element={<DoctorAppointments />} />
-          <Route path="/doctor/profile" element={<DoctorProfile/>} />
-          <Route path="/doctor/upload" element={<DoctorUpload/>} />
+          <Route path="/doctor/appointments/addappointment" element={<AddAppointment />} />
+          <Route path="/doctor/appointments/appointmentdetails/:aadhar_no" element={<DoctorAppointmentDetails />} />
+          <Route path="/doctor/profile" element={<DoctorProfile />} />
+          <Route path="/doctor/upload" element={<DoctorUpload />} />
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>

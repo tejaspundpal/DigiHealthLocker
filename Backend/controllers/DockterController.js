@@ -126,7 +126,45 @@ const uploadingFile = async (req, res) => {
 
 const addAppointment = async (req, res) => {
     try {
-        const { } = req.body;
+        if (!req.body) {
+            res.status(404).send({ result: false, message: "Enter all data required for the appointment" });
+        }
+        const { registrtionNumber, patientName, patientAadharNo, hospitalName, department, appointmentDate, timeSlot, problem } = req.body;
+
+
+        const userToFindAppointmnet = await PatientModel.find({ aadharcardnumber: patientAadharNo });
+
+        if (!userToFindAppointmnet) {
+            res.status(404).send({ result: false, message: "Patient with give aadharnumber is not exsits" });
+        }
+        const upadateDoctor = await DoctoerModel.findOne({ registrationnumber: registrtionNumber })
+        if (!upadateDoctor) {
+            res.status(404).send({ result: false, message: "The registrati number is not valid for this number" });
+        }
+        const updateListOfAppointment = upadateDoctor.appointmnets.concat({
+            patientName: patientName, appointmentDate: appointmentDate, time: timeSlot, problem, patientAddharnumber: patientAadharNo
+        })
+
+        const updatedDoctor = await DoctoerModel.findOneAndUpdate({ registrationnumber: registrtionNumber }, { $set: { appointmnets: updateListOfAppointment } });
+        // //Will be not used after jsonwebtoken
+        // const deatilsOfDoctor = await DoctoerModel.findOne({ registrationnumber: registrtionNumber });
+        if (!updatedDoctor) {
+            res.status(404).send({ result: false, message: "Appoinment is not added" });
+        }
+
+        res.status(200).send({ result: true, message: "Appoinment is added" });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     } catch (e) {
@@ -138,4 +176,34 @@ const addAppointment = async (req, res) => {
     }
 }
 
-module.exports = { temCotroller, Registrationdoctor, loginOfDoctor, uploadingFile, addAppointment };
+const getTheListOfData = async (req, res) => {
+
+    try {
+        if (!req.body) {
+            res.status(400).send({ result: false, message: "Addharcard is not recived" });
+        }
+
+        const { registrationnumber } = req.body;
+
+        const userData = await DoctoerModel.findOne({ registrationnumber });
+        console.log(userData);
+
+        if (!userData) {
+            res.status(400).send({ result: false, message: "User not found with this aadharcardnumber number" });
+        }
+
+        res.status(200).send({ result: true, list: userData.appointmnets });
+
+
+
+    } catch (e) {
+        console.log(e);
+        // next({
+        //     status: 500,
+        //     message: "Serevr side error check backend"
+        // })
+        res.status(500).send({ reslut: false, message: "Serevr side error" });
+    }
+}
+
+module.exports = { temCotroller, Registrationdoctor, loginOfDoctor, uploadingFile, addAppointment, getTheListOfData };
