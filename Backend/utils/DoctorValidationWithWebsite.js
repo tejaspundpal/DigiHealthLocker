@@ -12,11 +12,11 @@ const ValidateDoctorWithWebsit = async ({ Doctorname, RegistrtionNumber, userYea
     try {
 
         //create the browser like chrome
-        const browser = await puppeteer.launch({ headless: false, executablePath: executablePath() });
+        const browser = await puppeteer.launch({ headless: true, executablePath: executablePath() });
         //create the new bage in the browser which is created
         const page = await browser.newPage()
         //going to the page on the created page in browser
-        await page.goto(process.env.MEDICAL_VARIFICATION);
+        await page.goto(process.env.MEDICAL_VARIFICATION, { timeout: 80000 });
 
         await page.locator('#doctorName').fill(Doctorname);
         await page.locator('#doctorRegdNo').fill(RegistrtionNumber);
@@ -87,6 +87,7 @@ const ValidateDoctorWithWebsit = async ({ Doctorname, RegistrtionNumber, userYea
 
 
     } catch (e) {
+
         console.log(e);
         // if (e.message) {
 

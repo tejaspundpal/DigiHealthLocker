@@ -31,6 +31,13 @@ const patientSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
+    pdfdocumnetslist: [
+        {
+            _id: mongoose.Types.ObjectId,
+            filename: String,
+            orginalname: String
+        }
+    ],
     email: String,
     age: String,
     sex: String,
