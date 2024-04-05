@@ -12,17 +12,18 @@
 //         const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=16.7049873&lng=74.24325270000001&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
 //         const json = await data.json();
 //         console.log(json);
-//         setAllRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+//         setAllAppointments(json);
 //         // setFilterdRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
 //     }
 
-//     return allRestaurants;
+//     return allappoinments;
 // }
 
 const doctorAllAppointments = [
     {
       "appointment_id": "APPT001",
       "aadhar_no": "123456789011",
+      "registration_no":"2525252525",
       "patient_name":"Vedang",
       "hospital_name":"ABC",
       "department": "Cardiology",
@@ -34,6 +35,7 @@ const doctorAllAppointments = [
     {
       "appointment_id": "APPT002",
       "aadhar_no": "123456789012",
+      "registration_no":"2525252525",
       "patient_name":"Vedang2",
       "hospital_name":"ABC",
       "department": "Orthopedics",
@@ -45,6 +47,7 @@ const doctorAllAppointments = [
     {
       "appointment_id": "APPT003",
       "aadhar_no": "123456789013",
+      "registration_no":"2525252525",
       "patient_name":"Vedang3",
       "hospital_name":"ABC",
       "department": "Dermatology",
@@ -56,6 +59,7 @@ const doctorAllAppointments = [
     {
       "appointment_id": "APPT004",
       "aadhar_no": "123456789014",
+      "registration_no":"2525252525",
       "patient_name":"Vedang4",
       "hospital_name":"ABC",
       "department": "Ophthalmology",
@@ -67,6 +71,7 @@ const doctorAllAppointments = [
     {
       "appointment_id": "APPT005",
       "aadhar_no": "123456789015",
+      "registration_no":"2525252525",
       "patient_name":"Vedang5",
       "hospital_name":"ABC",
       "department": "Neurology",
@@ -78,6 +83,7 @@ const doctorAllAppointments = [
     {
       "appointment_id": "APPT006",
       "aadhar_no": "123456789016",
+      "registration_no":"2525252525",
       "patient_name":"Vedang6",
       "hospital_name":"ABC",
       "department": "Gastroenterology",

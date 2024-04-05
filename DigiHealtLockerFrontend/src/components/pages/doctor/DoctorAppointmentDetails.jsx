@@ -4,9 +4,11 @@ import doctorAllAppointments from '../../../utils/doctorAllAppointments';
 import DoctorHeader from './DoctorHeader';
 
 const DoctorAppointmentDetails = () => {
-  const {aadhar_no} = useParams();
+  const {aadhar_no,regisration_no} = useParams();
   console.log('Aadhaar No:', );
   console.log(doctorAllAppointments[0].aadhar_no);
+  console.log('Registration No:', );
+  console.log(doctorAllAppointments[0].registration_no);
   const appointment = doctorAllAppointments.find(appointment => appointment.aadhar_no === aadhar_no);
 
   if (!appointment) {

@@ -11,12 +11,12 @@ const DoctorAppointments = () => {
         <div>
           <div className='mt-10 flex justify-between'>
             <h1 className="text-3xl font-semibold text-center text-teal-600">Appointment List</h1>
-            <button
+            <NavLink to="/doctor/appointments/addappointment"><button
               type="submit"
               className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded focus:outline-none focus:bg-teal-600"
-            ><NavLink to="/doctor/appointments/addappointment">
-              Add Appointment</NavLink>
-            </button>
+            >
+              Add Appointment
+            </button></NavLink>
           </div>
           <table className="min-w-4xl bg-white shadow-lg rounded mt-5">
             <thead className='border'>
@@ -43,7 +43,7 @@ const DoctorAppointments = () => {
                       {appointment.status}
                     </span>
                   </td>
-                  <td className="border-b py-3 px-4 underline text-sm hover:text-blue-600"><NavLink to={'appointmentdetails/' + appointment.aadhar_no}>view more</NavLink></td>
+                  <td className="border-b py-3 px-4 underline text-sm hover:text-blue-600"><NavLink to={'appointmentdetails/' + appointment.aadhar_no +"/"+appointment.registration_no}>view more</NavLink></td>
                 </tr>
               ))}
             </tbody>
