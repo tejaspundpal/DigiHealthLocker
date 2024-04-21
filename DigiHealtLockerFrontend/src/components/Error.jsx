@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useRouteError } from "react-router-dom";
 const Error = () => {
+
     return (
+
+
+
+
         <>
             <div className="flex items-center justify-center h-screen bg-gray-100">
                 <div className="error-container text-center p-8 bg-white shadow-md rounded-md">
@@ -10,7 +15,11 @@ const Error = () => {
                 </div>
             </div>
         </>
-    )
+
+
+
+    );
+
 };
 
 export default Error;

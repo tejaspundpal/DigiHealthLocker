@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 const Router = require('./Routers/Routes');
+const cors = require("cors");
 const { temCotroller } = require('./controllers/DockterController');
 
 const db = require('./utils/db');
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(Router);
 //useing the middelware to error handiling
 app.use(ErrorMiddleware);
+
 
 
 
