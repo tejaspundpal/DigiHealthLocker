@@ -5,8 +5,8 @@ import logo from '../assets/images/DigiHealthlockerlogo.png'
 import { NavLink, BrowserRouter } from "react-router-dom";
 
 const navigation = [
-  // { name: 'About', to: '/about' },
-  // { name: 'Team', to: '/team' },
+  { name: 'About', to: '/about' },
+  { name: 'Team', to: '/team' },
 ]
 
 
@@ -45,12 +45,12 @@ export default function Header() {
               ))}
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-6">
-              {/* <NavLink
+              <NavLink
                 to="/patient/login"
                 className="rounded-md bg-teal-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
               >
                 Patient
-              </NavLink> */}
+              </NavLink>
               <NavLink
                 to='/doctor/login'
                 className="rounded-md bg-teal-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
@@ -94,12 +94,12 @@ export default function Header() {
                     ))}
                   </div>
                   <div className="py-6">
-                    {/* <NavLink
+                    <NavLink
                       to="/patient/login"
                       className="rounded-md bg-teal-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                     >
                       Patient
-                    </NavLink> */}
+                    </NavLink>
                     <NavLink
                       to="/doctor/login"
                       className="rounded-md bg-teal-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 ml-5"
@@ -135,12 +135,12 @@ export default function Header() {
                 Your comprehensive healthcare companion, streamlining access to medical records, personalized guidance, and proactive health management. Empowering you to take control of your well-being, effortlessly.
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                {/* <NavLink
+                <NavLink
                   to="/patient/login"
                   className="rounded-md bg-teal-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
                 >
                   Patient
-                </NavLink> */}
+                </NavLink>
                 <NavLink
                   to="/doctor/login"
                   className="rounded-md bg-teal-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"

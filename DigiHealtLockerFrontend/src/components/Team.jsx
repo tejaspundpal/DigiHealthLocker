@@ -4,7 +4,7 @@ const people = [
     {
         name: 'Prathamesh Patil',
         role: 'Developer',
-        imageUrl:'https://media.licdn.com/dms/image/D5603AQFxB51yEVg0XA/profile-displayphoto-shrink_100_100/0/1709230732551?e=1715212800&v=beta&t=Vlvj2cMNkOW8v4DY_afTHfjKZmDie703R5UvMwWaDDM'
+        imageUrl: 'https://media.licdn.com/dms/image/D5603AQFxB51yEVg0XA/profile-displayphoto-shrink_100_100/0/1709230732551?e=1715212800&v=beta&t=Vlvj2cMNkOW8v4DY_afTHfjKZmDie703R5UvMwWaDDM'
     },
     {
         name: 'Tejas Pundpal',
@@ -15,8 +15,9 @@ const people = [
     {
         name: 'Vedang Surnis',
         role: 'Developer',
-        imageUrl:'https://media.licdn.com/dms/image/D5603AQHe8wFGNKOUXw/profile-displayphoto-shrink_100_100/0/1711101960512?e=1717632000&v=beta&t=R_YBk3Wxsh6evmkTJrT0s6sDVFQJOpZkfo4Gu9evN48'
+        imageUrl: 'https://media.licdn.com/dms/image/D5603AQHe8wFGNKOUXw/profile-displayphoto-shrink_100_100/0/1711101960512?e=1717632000&v=beta&t=R_YBk3Wxsh6evmkTJrT0s6sDVFQJOpZkfo4Gu9evN48'
     },
+
 ]
 
 export default function Team() {

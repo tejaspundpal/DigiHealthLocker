@@ -68,13 +68,16 @@
 //   ]
 const allAppointments = async (registrationnumber) => {
   try {
-    const listOfApoointment = [];
+    let listOfApoointment = [];
+    const formdata = {
+      registrationnumber
+    }
     const responce = await fetch('/api/dretriveApointment', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: registrationnumber
+      body: JSON.stringify(formdata)
     });
     const data = await responce.json();
     if (!data.result) {

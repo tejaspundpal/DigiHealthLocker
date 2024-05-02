@@ -47,7 +47,7 @@ const loginOfPatient = async (req, res) => {
 
         const token = await user.generateWebTocken();
 
-        res.status(200).send({ result: true, message: "Login sucessfully" });
+        res.status(200).send({ result: true, message: "Login sucessfully", token });
 
 
     } catch (e) {

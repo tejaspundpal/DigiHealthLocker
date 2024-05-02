@@ -38,6 +38,36 @@ const patientSchema = new mongoose.Schema({
             orginalname: String
         }
     ],
+    appointmnets: [
+        {
+            appointmentId: String,
+            hospitalName: String,
+            doctorName: {
+                firstname: {
+                    type: String,
+
+                },
+                middelname: {
+                    type: String,
+
+                },
+                lastname: {
+                    type: String,
+
+                },
+            },
+            department: String,
+            appointmentDate: {
+                type: Date
+            },
+            time: {
+                type: String
+            },
+            problem: String,
+            addressofhospital: String,
+
+        }
+    ],
     email: String,
     age: String,
     sex: String,

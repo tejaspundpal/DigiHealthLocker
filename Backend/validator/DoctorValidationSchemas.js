@@ -8,6 +8,7 @@ const VerificationRegisterrationschemaDoctor = z.object({
     yearofregistration: z.string({ required_error: "Yearof Registration is required" }).min(4, "Length of the registration year must be minimum of length 4").max(4, "The length of the registration year is can not be grater than 4"),
     statemedicalcouncil: z.string({ required_error: "State medical council name is required" }).min(3, "Length of the state medical council name must be minimum of length 3").max(40, "The length of the medical council name year is can not be grater than 20"),
     addressofhospital: z.string({ required_error: "Address of hospital is required" }).trim().min(5, "Length of the address of hospital must be minimum of length 5").max(30, "The length of the address of hospital year is can not be grater than 30"),
+    hostpitalname: z.string({ required_error: "Name of hospital is required" }).trim().min(2, "Length of the address of hospital must be minimum of length 5").max(30, "The length of the address of hospital year is can not be grater than 30"),
     password: z.string({ required_error: "Password is required" }).trim().min(4, "Length of the password name must be mininmun of lenght 4"),
     cpassword: z.string({ required_error: "Password is required" }).trim().min(4, "Length of the password name must be mininmun of lenght 4"),
     phonenumber: z.string({ required_error: "Phone number is required" }).trim().min(10, "Length of the phone number must be mininmun of lenght 10").max(15, "Length of the phone number must be mininmun of lenght 15"),
@@ -21,4 +22,15 @@ const VerificationLoginschemaDoctor = z.object({
 
 });
 
-module.exports = { VerificationRegisterrationschemaDoctor, VerificationLoginschemaDoctor };
+const VerificationAddAppointment = z.object({
+    registrtionNumber: z.string({ required_error: "Registrati number of state medical council is required" }).min(3, " Length of the registration number must be minimum of length 3").trim().max(5, "The length of the registration number is can not be grater than 5"),
+    patientAadharNo: z.string({ required_error: "Aadharcard number is required" }).trim().min(12, "Aadhaar number can not have lenght less than 12 digit").max(12, "Aadhaar number can not have lenght grater than 12 digit"),
+    appointmentDate: z.string({ required_error: "Appointmnet date is required" }),
+    timeSlot: z.string({ required_error: "Time slot is required" }),
+    problem: z.string({ required_error: "Health issue is required" }).trim().min(3, "Health issues number can not have lenght mininmum than 3 digit").max(500, "Health issues can not have lenght grater than 500 digit")
+
+
+
+})
+
+module.exports = { VerificationRegisterrationschemaDoctor, VerificationLoginschemaDoctor, VerificationAddAppointment };
