@@ -3,6 +3,12 @@ const CompnaeringPassword = require('../utils/ComparingPassword');
 const DoctorValidationWithWebsite = require('../utils/DoctorValidationWithWebsite');
 const PatientModel = require('../models/PatientSchema');
 const mongoose = require('mongoose');
+const generateotp = require('../utils/OtpGeneration');
+const otp = require('../models/otp');
+const sendOtpWithMail = require('../utils/SendingMail');
+const notSendingMailUntilOneMinute = require('../utils/regenerationAftermin');
+const { gfsPromise } = require('../models/UploadingFiles');
+const archiver = require('archiver');
 
 const temCotroller = async (req, res) => {
     try {
@@ -128,7 +134,7 @@ const uploadingFile = async (req, res) => {
         // next({ status: 500 });
         next({
             status: 400,
-            message: "Serevr side error and we can not upload the file",
+            message: "Server side error and we can not upload the file",
         })
 
     }
@@ -207,34 +213,161 @@ const addAppointment = async (req, res) => {
     }
 }
 
-const getTheListOfData = async (req, res) => {
+// const getTheListOfData = async (req, res) => {
 
+//     try {
+//         if (!req.body) {
+//             res.status(400).send({ result: false, message: "Addharcard is not recived" });
+//         }
+
+//         const { registrationnumber } = req.body;
+
+//         const userData = await DoctoerModel.findOne({ registrationnumber });
+//         console.log(userData.appointmnets);
+
+//         if (!userData) {
+//             res.status(400).send({ result: false, message: "User not found with this aadharcardnumber number" });
+//         }
+
+//         res.status(200).send({ result: true, list: userData.appointmnets });
+
+
+
+//     } catch (e) {
+//         console.log(e);
+//         // next({
+//         //     status: 500,
+//         //     message: "Serevr side error check backend"
+//         // })
+//         res.status(500).send({ reslut: false, message: "Serevr side error" });
+//     }
+// }
+
+
+const genareteOtp = async (req, res) => {
     try {
-        if (!req.body) {
-            res.status(400).send({ result: false, message: "Addharcard is not recived" });
+        const { patientAadharNo: aadharcardnumber } = req.body;
+
+
+        //checking that the user is prest or not
+
+        const patientpresent = await PatientModel.findOne({ aadharcardnumber });
+        // console.log(patientpresent);
+        if (!patientpresent) {
+            return res.status(404).send({
+                result: false,
+                message: "User does not found with the provided addharcard"
+            });
         }
 
-        const { registrationnumber } = req.body;
+        //generating the otp for user with utils
+        const g_opt = await generateotp();
 
-        const userData = await DoctoerModel.findOne({ registrationnumber });
-        console.log(userData.appointmnets);
+        const sendingTheLimit = await otp.findOne({ aadharcardnumber });
 
-        if (!userData) {
-            res.status(400).send({ result: false, message: "User not found with this aadharcardnumber number" });
+        if (sendingTheLimit) {
+            const sendNextOtp = await notSendingMailUntilOneMinute(sendingTheLimit.timeStamp, 1);
+            if (!sendNextOtp) {
+                return res.status(400).send({ result: false, message: "Generate the otp after one minute" });
+            }
         }
 
-        res.status(200).send({ result: true, list: userData.appointmnets });
+        //storing the otp to the database with addharcard
+        const cDate = new Date();
+        await otp.findOneAndUpdate({ aadharcardnumber }, { otp: g_opt, timeStamp: new Date(cDate) }, { upsert: true, new: true, setDefalutOnInsert: true });
+
+
+        const mailInfo = await sendOtpWithMail(patientpresent.email, g_opt);
+        console.log("The mail info is", mailInfo);
+        res.status(200).send({ result: true, message: "Opt is send sucessfully", "otp": g_opt });
+
+        // console.log("The number we want", aadharcardnumber);
+
+
+    } catch (e) {
+        console.log(e);
+        next({
+            status: 400,
+            message: "Serevr side error and appointment is not added",
+        });
+    }
+}
+
+const verifyOtp = async (req, res) => {
+    try {
+        const { patientAadharNo: aadharcardnumber, otp: providedOtp } = req.body;
+
+
+
+        const isOtpValidAndPresent = await otp.findOne({ aadharcardnumber, otp: providedOtp });
+
+        if (!isOtpValidAndPresent) {
+            return res.status(406).send({ result: false, message: "Otp provided is wrong" });
+        }
+
+        //checking the time stamp of the otp if the otp has been generated 10 min it is exprired
+
+        const otpExpried = await notSendingMailUntilOneMinute(isOtpValidAndPresent.timeStamp, 10);
+        if (otpExpried) {
+            return res.status(410).send({ result: false, message: "Opt is expried regenrate the otp" });
+        }
+
+        const patientFiles = await PatientModel.findOne({ aadharcardnumber });
+        // console.log(patientFiles);
+
+        const pdfListForThePatient = patientFiles.pdfdocumnetslist;
+
+        const pdfFilenames = pdfListForThePatient.map(doc => doc.filename);
+        // console.log(pdfFilenames);
+
+        // console.log("gfs is as follows", gfs);
+        const gfs = await gfsPromise;
+        console.log("The gfs is as :", gfs);
+        const files = await gfs.find({ filename: { $in: pdfFilenames } }).toArray();
+
+        console.log("All fil related to the main paitient", files);
+        // res.status(200).send({ result: true, message: "File are send" });
+
+        if (files.length <= 0) {
+            return res.status(404).send({ result: false, messgae: "There are no file in the database" });
+        }
+        const archive = archiver('zip', {
+            zlib: { level: 9 }
+        });
+
+        archive.pipe(res);
+        res.setHeader('Content-Type', 'application/zip');
+        res.setHeader('Content-Disposition', 'attachment; filename="all_pdfs.zip"');
+
+        files.forEach(file => {
+            const downloadStream = gfs.openDownloadStream(file._id);
+            archive.append(downloadStream, { name: file.filename })
+        });
+
+        archive.finalize();
+
+        archive.on('end', () => {
+            console.log('All files have been streamed');
+
+        });
+
+        archive.on('close', () => {
+            console.log('Archive has been finalized');
+
+            // res.status(200).send({ message: "All files have been sent in zip" });
+        });
+
+
 
 
 
     } catch (e) {
         console.log(e);
-        // next({
-        //     status: 500,
-        //     message: "Serevr side error check backend"
-        // })
-        res.status(500).send({ reslut: false, message: "Serevr side error" });
+        next({
+            status: 400,
+            message: "Serevr side error and appointment is not added",
+        });
     }
 }
 
-module.exports = { temCotroller, Registrationdoctor, loginOfDoctor, uploadingFile, addAppointment, getTheListOfData };
+module.exports = { temCotroller, Registrationdoctor, loginOfDoctor, uploadingFile, addAppointment, genareteOtp, verifyOtp };

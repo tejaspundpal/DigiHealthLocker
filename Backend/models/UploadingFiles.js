@@ -7,13 +7,22 @@ const conn = mongoose.createConnection("mongodb://localhost:27017/digihealthlock
 
 let gfs;
 
-conn.once('open', () => {
-    gfs = new mongoose.mongo.GridFSBucket(conn.db, {
-        bucketName: "uploads"
-    });
-    // gfs = Grid(conn.db, mongoose.mongo);
-    // gfs.collection("uploads");
+// conn.once('open', () => {
+//     gfs = new mongoose.mongo.GridFSBucket(conn.db, {
+//         bucketName: "uploads"
+//     });
+//     // gfs = Grid(conn.db, mongoose.mongo);
+//     // gfs.collection("uploads");
 
+// });
+
+let gfsPromise = new Promise((resolve, reject) => {
+    conn.once('open', () => {
+        gfs = new mongoose.mongo.GridFSBucket(conn.db, {
+            bucketName: "uploads"
+        });
+        resolve(gfs);
+    });
 });
 
 const storage = new GridFsStorage({
@@ -28,4 +37,4 @@ const upload = multer({
     storage, limits: { fileSize: 50 * 1024 * 1024 }
 });
 
-module.exports = { gfs, upload };
+module.exports = { gfs, upload, gfsPromise };

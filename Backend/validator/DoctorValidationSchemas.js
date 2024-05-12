@@ -33,4 +33,13 @@ const VerificationAddAppointment = z.object({
 
 })
 
-module.exports = { VerificationRegisterrationschemaDoctor, VerificationLoginschemaDoctor, VerificationAddAppointment };
+const otpverificationAfterGenZod = z.object({
+    otp: z.number({ required_error: "Otp must be provided" }).min(100000, "Otp length can not be less then 6 digits").max(999999, "Otp length can not grater than 6 digits"),
+    patientAadharNo: z.string({ required_error: "Aadharcard number is required" }).trim().min(12, "Aadhaar number can not have lenght less than 12 digit").max(12, "Aadhaar number can not have lenght grater than 12 digit"),
+})
+
+const otpverificationZod = z.object({
+    patientAadharNo: z.string({ required_error: "Aadharcard number is required" }).trim().min(12, "Aadhaar number can not have lenght less than 12 digit").max(12, "Aadhaar number can not have lenght grater than 12 digit")
+})
+
+module.exports = { VerificationRegisterrationschemaDoctor, VerificationLoginschemaDoctor, VerificationAddAppointment, otpverificationZod, otpverificationAfterGenZod };

@@ -10,11 +10,13 @@ const dotenv = require("dotenv");
 //middle ware to handle the error and send responce in structured  way
 const ErrorMiddleware = require('./middlewares/ErrorControlMiddleWare');
 //To make use of the env variables
+
 dotenv.config();
-app.use(express.json());
-app.use(Router);
 //useing the middelware to error handiling
 app.use(ErrorMiddleware);
+app.use(express.json());
+app.use(Router);
+
 
 
 
