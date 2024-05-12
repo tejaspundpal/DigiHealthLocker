@@ -19,6 +19,7 @@ const doctoerSchema = new mongoose.Schema({
             require: true,
         },
     },
+    hostpitalname: String,
     registrationnumber: {
         type: String,
         require: true,
@@ -54,6 +55,7 @@ const doctoerSchema = new mongoose.Schema({
     ],
     appointmnets: [
         {
+            appointmentId: String,
             patientName: String,
             patientAddharnumber: String,
             appointmentDate: {

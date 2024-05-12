@@ -12,7 +12,7 @@ const ValidateDoctorWithWebsit = async ({ Doctorname, RegistrtionNumber, userYea
     try {
 
         //create the browser like chrome
-        const browser = await puppeteer.launch({ headless: true, executablePath: executablePath() });
+        const browser = await puppeteer.launch({ headless: false, executablePath: executablePath() });
         //create the new bage in the browser which is created
         const page = await browser.newPage()
         //going to the page on the created page in browser

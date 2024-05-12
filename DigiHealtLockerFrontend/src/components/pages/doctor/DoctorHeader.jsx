@@ -17,8 +17,8 @@ const navigation = [
   { name: 'Upload Document', href: '/doctor/upload', current: false },
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: '/doctor/profile' },
-  { name: 'Sign out', href: '#' },
+  // { name: 'Your Profile', href: '/doctor/profile' },
+  { name: 'Sign out', href: '/logout' },
 ]
 
 function classNames(...classes) {
@@ -127,7 +127,7 @@ export default function DoctorHeader() {
                     key={item.name}
                     as="a"
                     href={item.href}
-                    className={ 'text-teal-900 hover:bg-teal-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'
+                    className={'text-teal-900 hover:bg-teal-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'
                     }
                     aria-current={item.current ? 'page' : undefined}
                   >

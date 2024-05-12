@@ -4,8 +4,8 @@ const { temCotroller, Registrationdoctor, loginOfDoctor, uploadingFile, addAppoi
 const { registrationpatient, loginOfPatient } = require('../controllers/PatientController');
 const Validate = require('../middlewares/Validate-middleware');
 const { VerificationRegisterrationschema, VerificationLoginschemaPatient } = require('../validator/PatientValidatorSchemas');
-const { VerificationRegisterrationschemaDoctor, VerificationLoginschemaDoctor } = require('../validator/DoctorValidationSchemas');
-// const DAuth = require('../middlewares/Dauth');
+const { VerificationRegisterrationschemaDoctor, VerificationLoginschemaDoctor, VerificationAddAppointment } = require('../validator/DoctorValidationSchemas');
+const Auth = require('../middlewares/Auth');
 const { gfs, upload } = require('../models/UploadingFiles');
 const sizeLimitation = require('../middlewares/CheckSizeFile');
 
@@ -15,8 +15,8 @@ router.post("/pregister", Validate(VerificationRegisterrationschema), registrati
 router.post("/dregister", Validate(VerificationRegisterrationschemaDoctor), Registrationdoctor);
 router.post("/plogin", Validate(VerificationLoginschemaPatient), loginOfPatient);
 router.post("/dlogin", Validate(VerificationLoginschemaDoctor), loginOfDoctor);
-// router.get("/user", DAuth, temCotroller)
+router.get("/user", Auth, temCotroller)
 router.post("/duploadPdf", sizeLimitation, upload.single('file'), uploadingFile);
-router.post("/dAddAppointment", addAppointment);
-router.post("/dretriveApointment", getTheListOfData);
+router.post("/dAddAppointment", Validate(VerificationAddAppointment), addAppointment);
+// router.post("/dretriveApointment", getTheListOfData);
 module.exports = router;

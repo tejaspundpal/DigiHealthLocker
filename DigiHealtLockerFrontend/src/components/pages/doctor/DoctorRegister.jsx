@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import logo from '../../../assets/images/DigiHealthlockerlogo.png'
-import { NavLink } from 'react-router-dom'
-
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../../Store/AuthClient';
 const DoctorRegister = () => {
   const [userReg, setUserReg] = useState({
     firstname: "",
     middelname: "",
+    hostpitalname: "",
     lastname: "",
     phonenumber: "",
     registrationnumber: "",
@@ -15,6 +16,8 @@ const DoctorRegister = () => {
     password: "",
     cpassword: ""
   });
+  const { storeTokenInLS } = useAuth();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const name = e.target.name;
@@ -37,6 +40,15 @@ const DoctorRegister = () => {
       });
       const data = await resopnce.json();
 
+      if (resopnce.ok) {
+        if (!data) {
+          return console.log("There is no data after respose");
+        }
+        storeTokenInLS(data.token);
+
+        navigate("/doctor/dashboard");
+
+      }
 
       console.log("The resposnce will be:", resopnce);
       console.log("The data is:", data);
@@ -88,6 +100,10 @@ const DoctorRegister = () => {
                 <div>
                   <label htmlFor="stateCouncil" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State Medical Council</label>
                   <input type="text" id="stateCouncil" name="statemedicalcouncil" value={userReg.stateCouncil} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your state medical council" />
+                </div>
+                <div>
+                  <label htmlFor="hospitalName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name Of Hospital</label>
+                  <input type="text" id="hospitalName" name="hostpitalname" value={userReg.hostpitalname} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your hospital address" />
                 </div>
                 <div>
                   <label htmlFor="hospitalAddress" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address of Hospital</label>

@@ -2,19 +2,24 @@ const DoctoerModel = require('../models/Doctorschem');
 const CompnaeringPassword = require('../utils/ComparingPassword');
 const DoctorValidationWithWebsite = require('../utils/DoctorValidationWithWebsite');
 const PatientModel = require('../models/PatientSchema');
+const mongoose = require('mongoose');
 
 const temCotroller = async (req, res) => {
     try {
+        if (!req.userData) {
+            return res.send(400).send({ result: false, message: "User is not authticated" });
+        }
 
-        res.status(200).send({ message: "This is from controller and my name is vedang", user: req.user });
+        res.status(200).send({ result: true, user: req.userData });
     } catch (err) {
         console.log(err);
+        next({ status: 500, message: "Server side error" });
     }
 }
 const Registrationdoctor = async (req, res) => {
     try {
 
-        let { firstname, middelname, lastname, registrationnumber, yearofregistration, statemedicalcouncil, addressofhospital, password, cpassword, phonenumber } = req.body;
+        let { firstname, middelname, lastname, registrationnumber, yearofregistration, statemedicalcouncil, addressofhospital, password, cpassword, phonenumber, hostpitalname } = req.body;
         const existUser = await DoctoerModel.findOne({ registrationnumber });
 
         if (existUser) {
@@ -33,14 +38,19 @@ const Registrationdoctor = async (req, res) => {
         }
 
         //Web scraping for the cheking of the doctor
-        const newDoctoruser = await DoctoerModel.create({ fullname: { firstname, middelname, lastname }, registrationnumber, yearofregistration, statemedicalcouncil, addressofhospital, password, cpassword, phonenumber, });
+        console.log("The name of the hostpital will be as per I decide yoooo", hostpitalname);
+        const newDoctoruser = await DoctoerModel.create({ fullname: { firstname, middelname, lastname }, registrationnumber, yearofregistration, hostpitalname, statemedicalcouncil, addressofhospital, password, cpassword, phonenumber, });
 
         newDoctoruser.save();
-        res.status(200).send({ result: true, message: "User is registered sucessfully" });
+        const token = await newDoctoruser.generateTokenForDoctor();
+        res.status(200).send({ result: true, message: "User is registered sucessfully", token });
 
     } catch (e) {
         console.log(e);
-        next({ status: 400, message: "Registration unsuccessful saver side error" });
+        next({
+            status: 400,
+            message: "Login unsuccessful server side error",
+        })
     }
 }
 
@@ -127,30 +137,51 @@ const uploadingFile = async (req, res) => {
 const addAppointment = async (req, res) => {
     try {
         if (!req.body) {
-            res.status(404).send({ result: false, message: "Enter all data required for the appointment" });
+            return res.status(404).send({ result: false, message: "Enter all data required for the appointment" });
         }
-        const { registrtionNumber, patientName, patientAadharNo, hospitalName, department, appointmentDate, timeSlot, problem } = req.body;
+        const { registrtionNumber, patientAadharNo, hospitalName, department, appointmentDate, timeSlot, problem } = req.body;
 
 
-        const userToFindAppointmnet = await PatientModel.find({ aadharcardnumber: patientAadharNo });
+        const userToFindAppointmnet = await PatientModel.findOne({ aadharcardnumber: patientAadharNo });
 
         if (!userToFindAppointmnet) {
-            res.status(404).send({ result: false, message: "Patient with give aadharnumber is not exsits" });
+            return res.status(404).send({ result: false, message: "Patient with give aadharnumber is not exsits" });
         }
         const upadateDoctor = await DoctoerModel.findOne({ registrationnumber: registrtionNumber })
-        if (!upadateDoctor) {
+
+        if (upadateDoctor === null) {
             res.status(404).send({ result: false, message: "The registrati number is not valid for this number" });
+            return;
         }
+        const uniqueIdForAppoitment = new mongoose.Types.ObjectId();
         const updateListOfAppointment = upadateDoctor.appointmnets.concat({
-            patientName: patientName, appointmentDate: appointmentDate, time: timeSlot, problem, patientAddharnumber: patientAadharNo
-        })
+            patientName: userToFindAppointmnet.fullname.firstname, appointmentDate: appointmentDate, time: timeSlot, problem, patientAddharnumber: patientAadharNo, appointmentId: uniqueIdForAppoitment.toHexString()
+        });
+
+        // console.log(updateListOfAppointment);
+
 
         const updatedDoctor = await DoctoerModel.findOneAndUpdate({ registrationnumber: registrtionNumber }, { $set: { appointmnets: updateListOfAppointment } });
         // //Will be not used after jsonwebtoken
         // const deatilsOfDoctor = await DoctoerModel.findOne({ registrationnumber: registrtionNumber });
         if (!updatedDoctor) {
-            res.status(404).send({ result: false, message: "Appoinment is not added" });
+
+            return res.status(404).send({ result: false, message: "Appointment is not added" });
         }
+        console.log(updatedDoctor);
+        console.log(updatedDoctor.appointmnets.length);
+        // const updateListOfPatientIdIs = updatedDoctor.appointmnets[updatedDoctor.appointmnets.length - 1]._id;
+
+        // console.log("This is the appoinment id we have to create", uniqueIdForAppoitment.toHexString());
+
+        const updatePatientAppointmentList = userToFindAppointmnet.appointmnets.concat({
+            appointmentId: uniqueIdForAppoitment.toHexString(), hospitalName: upadateDoctor.hostpitalname, doctorName: { firstname: upadateDoctor.fullname.firstname, middelname: upadateDoctor.fullname.middelname, lastname: upadateDoctor.fullname.lastname }, department: department,
+            appointmentDate: appointmentDate, time: timeSlot, problem: problem, addressofhospital: upadateDoctor.addressofhospital
+        })
+
+        const updatePaient = await PatientModel.findOneAndUpdate({ aadharcardnumber: patientAadharNo }, { $set: { appointmnets: updatePatientAppointmentList } })
+
+        console.log(updatePaient);
 
         res.status(200).send({ result: true, message: "Appoinment is added" });
 
@@ -172,7 +203,7 @@ const addAppointment = async (req, res) => {
         next({
             status: 400,
             message: "Serevr side error and appointment is not added",
-        })
+        });
     }
 }
 
@@ -186,7 +217,7 @@ const getTheListOfData = async (req, res) => {
         const { registrationnumber } = req.body;
 
         const userData = await DoctoerModel.findOne({ registrationnumber });
-        console.log(userData);
+        console.log(userData.appointmnets);
 
         if (!userData) {
             res.status(400).send({ result: false, message: "User not found with this aadharcardnumber number" });
