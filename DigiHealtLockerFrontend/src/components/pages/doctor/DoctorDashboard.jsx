@@ -5,8 +5,8 @@ import { useAuth } from '../../../Store/AuthClient'
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import JSZip from 'jszip';
-import {usePdfCard} from '../../../utils/usePdfCard';
-import pdfUrls from '../../../utils/pdfUrls';
+// import {usePdfCard} from '../../../utils/usePdfCard';
+// import pdfUrls from '../../../utils/pdfUrls';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 const DoctorDashboard = () => {
@@ -17,9 +17,9 @@ const DoctorDashboard = () => {
   const [otpIsVrified, setOtpIsVrified] = useState(false);
   const [addharCard, setAadharNo] = useState();
   const [noFile, setFileHaveNo] = useState(false);
-  // const [pdfUrls, setPdfUrls] = useState([]);
-  // const [numPages, setNumPages] = useState(null);
-  // const [pageNumber, setPageNumber] = useState(1);
+  const [pdfUrls, setPdfUrls] = useState([]);
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
   console.log(user);
   // console.log(pdfUrls);
   const generateOtp = async () => {
@@ -92,7 +92,7 @@ const DoctorDashboard = () => {
         })
       );
 
-      // setPdfUrls(urls);
+      setPdfUrls(urls);
       setOtpIsVrified(true);
       setFileHaveNo(false);
 
@@ -135,22 +135,22 @@ const DoctorDashboard = () => {
                 </button>
               </div>
               {pdfUrls.length > 0 && (
-              <div>
-                {pdfUrls.map((url, index) => (
-                  <div key={`pdf_${index}`}>
-                    <Document
-                      file={url}
-                      onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-                    >
-                      {Array.from(new Array(numPages), (el, index) => (
-                        <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-                      ))}
-                    </Document>
-                    <p>Page {pageNumber} of {numPages}</p>
-                  </div>
-                ))}
-              </div>
-            )}
+                <div>
+                  {pdfUrls.map((url, index) => (
+                    <div key={`pdf_${index}`}>
+                      <Document
+                        file={url}
+                        onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+                      >
+                        {Array.from(new Array(numPages), (el, index) => (
+                          <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+                        ))}
+                      </Document>
+                      <p>Page {pageNumber} of {numPages}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
               {/* <h1>hey</h1> */}
               {/* {pdfUrls.length > 0 && (
                 <div className="flex flex-wrap justify-center">
