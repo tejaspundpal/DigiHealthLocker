@@ -1,9 +1,9 @@
 const expres = require('express');
 const router = expres.Router();
 const { temCotroller, Registrationdoctor, loginOfDoctor, uploadingFile, addAppointment, getTheListOfData, genareteOtp, verifyOtp } = require('../controllers/DockterController');
-const { registrationpatient, loginOfPatient } = require('../controllers/PatientController');
+const { registrationpatient, loginOfPatient, getAllPdfForPerson } = require('../controllers/PatientController');
 const Validate = require('../middlewares/Validate-middleware');
-const { VerificationRegisterrationschema, VerificationLoginschemaPatient } = require('../validator/PatientValidatorSchemas');
+const { VerificationRegisterrationschema, VerificationLoginschemaPatient, VerificationOfAllPdfs } = require('../validator/PatientValidatorSchemas');
 const { VerificationRegisterrationschemaDoctor, VerificationLoginschemaDoctor, VerificationAddAppointment, otpverificationZod, otpverificationAfterGenZod } = require('../validator/DoctorValidationSchemas');
 const Auth = require('../middlewares/Auth');
 const { gfs, upload } = require('../models/UploadingFiles');
@@ -23,4 +23,7 @@ router.post("/dAddAppointment", Validate(VerificationAddAppointment), addAppoint
 
 router.post("/gotp", Validate(otpverificationZod), genareteOtp);
 router.post("/votp", Validate(otpverificationAfterGenZod), verifyOtp);
+
+//end for sending the pdf of the user 
+router.post("/userPdfAll", Validate(VerificationOfAllPdfs), getAllPdfForPerson);
 module.exports = router;

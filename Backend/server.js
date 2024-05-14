@@ -13,8 +13,8 @@ const ErrorMiddleware = require('./middlewares/ErrorControlMiddleWare');
 
 dotenv.config();
 //useing the middelware to error handiling
-app.use(ErrorMiddleware);
 app.use(express.json());
+app.use(ErrorMiddleware);
 app.use(Router);
 
 

@@ -88,9 +88,9 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         authenticatUser();
     }, [location.pathname]);
-    // useEffect(() => {
-    //     authenticatUser();
-    // }, []);
+    useEffect(() => {
+        authenticatUser();
+    }, []);
 
 
 

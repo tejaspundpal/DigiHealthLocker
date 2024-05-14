@@ -20,7 +20,7 @@ const navigation = [
 ]
 const userNavigation = [
   // { name: 'Your Profile', href: '/patient/profile' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Sign out', href: '/logout' },
 ]
 
 function classNames(...classes) {
