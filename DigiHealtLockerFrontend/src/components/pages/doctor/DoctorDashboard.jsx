@@ -5,6 +5,8 @@ import { useAuth } from '../../../Store/AuthClient'
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import JSZip from 'jszip';
+import {usePdfCard} from '../../../utils/usePdfCard';
+import pdfUrls from '../../../utils/pdfUrls';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 const DoctorDashboard = () => {
@@ -15,10 +17,11 @@ const DoctorDashboard = () => {
   const [otpIsVrified, setOtpIsVrified] = useState(false);
   const [addharCard, setAadharNo] = useState();
   const [noFile, setFileHaveNo] = useState(false);
-  const [pdfUrls, setPdfUrls] = useState([]);
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
+  // const [pdfUrls, setPdfUrls] = useState([]);
+  // const [numPages, setNumPages] = useState(null);
+  // const [pageNumber, setPageNumber] = useState(1);
   console.log(user);
+  // console.log(pdfUrls);
   const generateOtp = async () => {
     try {
       const formData = {
@@ -89,7 +92,7 @@ const DoctorDashboard = () => {
         })
       );
 
-      setPdfUrls(urls);
+      // setPdfUrls(urls);
       setOtpIsVrified(true);
       setFileHaveNo(false);
 
@@ -110,21 +113,28 @@ const DoctorDashboard = () => {
 
     <>
       <DoctorHeader />
-
       <div className="container mx-auto mt-10">
         <h1 className="text-3xl font-semibold text-center mb-8 text-teal-600">Documets of the Patient</h1>
-
         {
-          otpGenerated ? otpIsVrified ? (noFile ? (<h1>There is no files to show</h1>) : (<div>
-            <div className="mb-4">
-              <button
+          otpGenerated ? otpIsVrified ? (noFile ? (<div><div className="mb-4 items-center flex justify-center">
+            <button
 
-                className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded focus:outline-none focus:bg-teal-600" onClick={backToGenaretionOfOtp}
-              >
-                Check pdf of anoter patient documents
-              </button>
-            </div>
-            {pdfUrls.length > 0 && (
+              className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded focus:outline-none focus:bg-teal-600" onClick={backToGenaretionOfOtp}
+            >
+              Check documents of another patient
+            </button>
+          </div>
+            <div className='items-center flex justify-center'><h1 className='text-xl mt-10 font-semibold text-gray-500'>No Files to show !</h1></div></div>) :
+            (<div>
+              <div className="mb-4 items-center flex justify-center">
+                <button
+
+                  className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded focus:outline-none focus:bg-teal-600" onClick={backToGenaretionOfOtp}
+                >
+                  Check documents of another patient
+                </button>
+              </div>
+              {pdfUrls.length > 0 && (
               <div>
                 {pdfUrls.map((url, index) => (
                   <div key={`pdf_${index}`}>
@@ -141,7 +151,19 @@ const DoctorDashboard = () => {
                 ))}
               </div>
             )}
-          </div>))
+              {/* <h1>hey</h1> */}
+              {/* {pdfUrls.length > 0 && (
+                <div className="flex flex-wrap justify-center">
+                  {pdfUrls.map((url, index) => (
+                    <usePdfCard
+                      key={`pdf_${index}`}
+                      url={url}
+                    />
+                  ))}
+                  <h1>hey</h1>
+                </div>
+              )} */}
+            </div>))
             :
             (<div className="max-w-md mx-auto">
               <div className="mb-4">
@@ -191,9 +213,6 @@ const DoctorDashboard = () => {
 
             </div>)
         }
-
-
-
       </div >
     </>
   )

@@ -6,7 +6,12 @@ export default {
     "./node_modules/tw-elements-react/dist/js/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        teachers: ['"Teachers"', "sans-serif"],
+        // Add more custom font families as needed
+      },
+    },
   },
   darkMode: "class",
   plugins: [require("tw-elements-react/dist/plugin.cjs")]

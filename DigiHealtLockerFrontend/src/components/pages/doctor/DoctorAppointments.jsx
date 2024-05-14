@@ -4,7 +4,7 @@ import allAppointments from '../../../utils/allAppointments'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../../../Store/AuthClient'
 import './term.css'
-
+import { ShimmerTable } from '../../../utils/Shimmer'
 
 const DoctorAppointments = () => {
 
@@ -34,16 +34,14 @@ const DoctorAppointments = () => {
   }, [])
   useEffect(() => {
     console.log("This is the main thing to be updated");
-
     getTheList();
-
   }, [user])
 
   return (
     <>
       <DoctorHeader />
       <div className="overflow-x-auto flex items-center justify-center">
-        <div>
+        <div className='w-5/6'>
           <div className='mt-10 flex justify-between'>
             <h1 className="text-3xl font-semibold text-center text-teal-600">Appointment List</h1>
             <NavLink to="/doctor/appointments/addappointment">
@@ -55,8 +53,9 @@ const DoctorAppointments = () => {
               </button></NavLink>
           </div>
           {
-            !appointmentsLoaded ? <div className="loader"></div> :
-              appointmentsLoaded && doctorAllAppointments.length === 0 ? (<h1>There are no appointment click on add one</h1>) : (<table className="min-w-4xl bg-white shadow-lg rounded mt-5">
+            !appointmentsLoaded ? <ShimmerTable/> :
+              appointmentsLoaded && doctorAllAppointments.length === 0 ? (<div><h1 className='text-xl mt-10 font-semibold text-gray-500'>No Appointments to show !</h1></div>) : (
+                <table className="min-w-4xl bg-white shadow-lg rounded mt-10">
                 <thead className='border'>
                   <tr className="text-left  text-teal-600">
                     {/* <th className="py-3 px-4">Appointment ID</th> */}
@@ -81,11 +80,6 @@ const DoctorAppointments = () => {
                   ))}
                 </tbody>
               </table>)
-
-
-
-
-
           }
 
         </div>
