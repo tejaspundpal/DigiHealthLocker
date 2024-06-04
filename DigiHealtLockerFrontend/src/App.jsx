@@ -47,6 +47,11 @@ function App() {
           <Route path="/patient/report" element={<PatientReport />} />
           <Route path="/doctor/dashboard" element={<DoctorDashboard />} />
           <Route path="/doctor/appointments" element={<DoctorAppointments />} />
+
+          {/* <Route path="/doctor/appointments/addappointment" element={<AddAppointment/>} />
+          <Route path="/doctor/appointments/appointmentdetails/:aadhar_no/:registration_no" element={<DoctorAppointmentDetails/>} />
+          <Route path="/doctor/profile" element={<DoctorProfile/>} />
+          <Route path="/doctor/upload" element={<DoctorUpload/>} /> */}
           <Route path="/doctor/appointments/addappointment" element={<AddAppointment />} />
           <Route path="/doctor/appointments/appointmentdetails/:id" element={<DoctorAppointmentDetails />} />
           <Route path="/doctor/profile" element={<DoctorProfile />} />

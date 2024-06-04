@@ -14,9 +14,9 @@ const user = {
 const navigation = [
   { name: 'Dashboard', href: '/patient/dashboard', current: true },
   { name: 'Appointments', href: '/patient/appointments', current: false },
-  // { name: 'Insurance', href: '/patient/insurance', current: false },
-  // { name: 'Calendar', href: '#', current: false },
-  // { name: 'Reports', href: '/patient/report', current: false },
+  { name: 'Insurance', href: '/patient/insurance', current: false },
+  { name: 'Calendar', href: '#', current: false },
+  { name: 'Reports', href: '/patient/report', current: false },
 ]
 const userNavigation = [
   // { name: 'Your Profile', href: '/patient/profile' },
@@ -61,14 +61,14 @@ export default function PatientHeader() {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
-                    {/* <button
+                    <button
                       type="button"
                       className="relative rounded-full bg-teal-800 p-1 text-teal-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-teal-800"
                     >
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button> */}
+                    </button>
                     <Menu as="div" className="relative ml-3">
                       <div>
                         <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-teal-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-teal-800">
@@ -146,14 +146,14 @@ export default function PatientHeader() {
                     <div className="text-base font-medium leading-none text-teal-700">{user.name}</div>
                     <div className="text-sm font-medium leading-none text-teal-700">{user.email}</div>
                   </div>
-                  {/* <button
+                  <button
                     type="button"
                     className="relative ml-auto flex-shrink-0 rounded-full bg-teal-800 p-1 text-teal-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-teal-800"
                   >
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">View notifications</span>
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button> */}
+                  </button>
                 </div>
                 <div className="mt-3 space-y-1 px-2">
                   {userNavigation.map((item) => (
