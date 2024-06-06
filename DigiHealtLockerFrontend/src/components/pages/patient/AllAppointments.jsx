@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PatientHeader from './PatientHeader'
 import { NavLink } from 'react-router-dom'
-import allAppointments from '../../../utils/allAppointments';
+import { ShimmerTable } from '../../../utils/Shimmer';
 import { useAuth } from '../../../Store/AuthClient';
 import '../doctor/term.css'
 
@@ -44,13 +44,13 @@ const AllAppointments = () => {
       <PatientHeader />
       <div className="overflow-x-auto flex items-center justify-center">
 
-        <div>
+        <div className='w-5/6'>
           <div className='mt-10 flex justify-between'>
             <h1 className="text-3xl font-semibold text-center text-teal-600">Appointment List</h1>
 
           </div>
           {
-            !appointmentsLoaded ? <div className="loader"></div> :
+            !appointmentsLoaded ? <ShimmerTable /> :
               appointmentsLoaded && pAllAppointments.length == 0 ? (<h1>There are no appointment</h1>) : (<table className="min-w-4xl bg-white shadow-lg rounded mt-10">
                 <thead className='border'>
                   <tr className="text-left  text-teal-600">

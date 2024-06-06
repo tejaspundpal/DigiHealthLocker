@@ -50,3 +50,62 @@
     text-overflow: ellipsis;
     /* Optional: Add ellipsis (...) for overflow text */
 }
+
+/* term.css */
+
+
+.pdf-card-container {
+    width: 100%;
+    max-width: 500px;
+    /* Ensure the card doesn’t exceed 500px width */
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
+
+.pdf-card-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.pdf-document {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pdf-page {
+    margin: 1rem 0;
+    /* Increase margin for more space between pages */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    max-height: 600px;
+    /* Constrain the height of the PDF pages */
+    width: 100%;
+    /* Ensure it fits within the card width */
+    display: flex;
+    justify-content: center;
+}
+
+.pdf-page canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive Styling */
+@media (max-width: 600px) {
+    .pdf-card-container {
+        width: 90%;
+        padding: 0.5rem;
+    }
+
+    .pdf-page {
+        margin: 0.5rem 0;
+        /* Adjust margin for smaller screens */
+    }
+}

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import PatientHeader from './PatientHeader'
 import { useAuth } from '../../../Store/AuthClient';
 import { Document, Page, pdfjs } from 'react-pdf';
+import UsePdfCard from "../../../utils/UsePdfCard";
 import JSZip from 'jszip';
+
 
 const PatientDashboard = () => {
     let { user } = useAuth();
@@ -79,7 +81,7 @@ const PatientDashboard = () => {
                 noFile ? (<h1>There is no files to show</h1>) : (<div>
                     {pdfUrls.length > 0 && (
                         <div>
-                            {pdfUrls.map((url, index) => (
+                            {/* {pdfUrls.map((url, index) => (
                                 <div key={`pdf_${index}`}>
                                     <Document
                                         file={url}
@@ -89,8 +91,14 @@ const PatientDashboard = () => {
                                             <Page key={`page_${index + 1}`} pageNumber={1} />
                                         ))}
                                     </Document>
-                                    {/* <p>Page {pageNumber} of {numPages}</p> */}
+
                                 </div>
+                            ))} */}
+
+                            {pdfUrls.map((url, index) => (
+                                <UsePdfCard key={`pdf_${index}`}
+                                    url={url}
+                                />
                             ))}
                         </div>
                     )}

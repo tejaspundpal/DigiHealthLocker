@@ -1,5 +1,6 @@
 import React from 'react';
 import { Document, Page } from 'react-pdf';
+import "../components/pages/doctor/term.css"
 
 const UsePdfCard = ({ url }) => {
   const [numPages, setNumPages] = React.useState(null);
@@ -9,19 +10,20 @@ const UsePdfCard = ({ url }) => {
   const togglePdf = () => {
     setIsOpen(!isOpen);
   };
-  console.log("hi");
+
   return (
-    <div className="w-1/2 rounded overflow-hidden m-4 cursor-pointer ">
-      <div className="">
+    <div className="pdf-card-container cursor-pointer">
+      <div className="pdf-document">
         <Document
           file={url}
           onLoadSuccess={({ numPages }) => setNumPages(numPages)}
         >
           {Array.from(new Array(numPages), (el, index) => (
-            <Page key={`page_${index + 1}`} pageNumber={1} width={500} />
+            <div className="pdf-page" key={`page_${index + 1}`}>
+              <Page pageNumber={index + 1} width={450} />
+            </div>
           ))}
         </Document>
-
       </div>
     </div>
   );
