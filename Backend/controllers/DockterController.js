@@ -285,11 +285,16 @@ const genareteOtp = async (req, res) => {
 
 
     } catch (e) {
-        console.log(e);
-        next({
-            status: 400,
-            message: "Serevr side error and appointment is not added",
-        });
+        // console.log(e);
+        // console.log("The error we getting:", e.errors);
+
+
+        res.send(400).send({ result: false, message: "Server side error" });
+
+        // next({
+        //     status: 400,
+        //     message: "Serevr side error and appointment is not added",
+        // });
     }
 }
 
@@ -314,7 +319,9 @@ const verifyOtp = async (req, res) => {
 
         const patientFiles = await PatientModel.findOne({ aadharcardnumber });
         // console.log(patientFiles);
-
+        if (patientFiles.pdfdocumnetslist.length === 0) {
+            return res.status(404).send({ result: false, messgae: "There are no file in the database" });
+        }
         const pdfListForThePatient = patientFiles.pdfdocumnetslist;
 
         const pdfFilenames = pdfListForThePatient.map(doc => doc.filename);
@@ -325,10 +332,10 @@ const verifyOtp = async (req, res) => {
         console.log("The gfs is as :", gfs);
         const files = await gfs.find({ filename: { $in: pdfFilenames } }).toArray();
 
-        console.log("All fil related to the main paitient", files);
+        console.log("All fil related to the main paitient", files, "Length is:", files.length);
         // res.status(200).send({ result: true, message: "File are send" });
 
-        if (files.length <= 0) {
+        if (files.length === 0) {
             return res.status(404).send({ result: false, messgae: "There are no file in the database" });
         }
         const archive = archiver('zip', {
@@ -362,11 +369,12 @@ const verifyOtp = async (req, res) => {
 
 
     } catch (e) {
-        console.log(e);
-        next({
-            status: 400,
-            message: "Serevr side error and appointment is not added",
-        });
+        console.log("The error we getting", e.errors);
+        // res.status(400).send({ result: false, message: e[0].errors[0].message });
+        // next({
+        //     status: 400,
+        //     message: "Serevr side error and appointment is not added",
+        // });
     }
 }
 

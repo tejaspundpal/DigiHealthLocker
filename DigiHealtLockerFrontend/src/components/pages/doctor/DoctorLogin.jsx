@@ -49,6 +49,9 @@ const DoctorLogin = () => {
         navigate("/doctor/dashboard");
       }
     } catch (err) {
+      if (err instanceof z.ZodError) {
+        console.log("The error we are finding:", err.issues);
+      }
       console.log(err);
     }
   }

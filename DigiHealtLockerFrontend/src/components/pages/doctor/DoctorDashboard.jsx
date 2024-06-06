@@ -2,10 +2,11 @@ import React, { useRef, useState } from 'react'
 import DoctorHeader from './DoctorHeader'
 import { Document, Page, pdfjs } from 'react-pdf';
 import { useAuth } from '../../../Store/AuthClient'
+import { toast } from 'react-toastify';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import JSZip from 'jszip';
-// import {usePdfCard} from '../../../utils/usePdfCard';
+import UsePdfCard from '../../../utils/UsePdfCard';
 // import pdfUrls from '../../../utils/pdfUrls';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -38,12 +39,44 @@ const DoctorDashboard = () => {
 
 
       })
+      const data = await response.json();
       if (response.status == 200) {
+        toast.success(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
         setOtpGenerated(true);
+      } else {
+        toast.error(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
 
     } catch (e) {
       console.log(e);
+      toast.error("Frontend error", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   }
   const verifyOtp = async () => {
@@ -61,45 +94,99 @@ const DoctorDashboard = () => {
 
 
       })
-      if (response.status != 200) {
+      if (response.status != 200 && response.status != 404) {
+        const data = await response.json();
+        toast.error(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
         setOtpIsVrified(false);
-      }
 
-      if (response.status == 404) {
+      } else if (response.status == 404) {
+        const data = await response.json();
+
+        toast.error(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
         setOtpIsVrified(true);
         setFileHaveNo(true);
-      }
 
-      if (response.status == 410) {
-        setOtpGenerated(false);
-      }
-
-
-      const blob = await response.blob();
-
-      const data = await JSZip.loadAsync(blob);
-      console.log("The data will get:", data);
-
-      const urls = [];
-      await Promise.all(
-        Object.keys(data.files).map(async (filename) => {
-          const file = data.files[filename];
-          console.log(file);
-          if (filename.endsWith('.pdf')) {
-            const url = URL.createObjectURL(await file.async('blob'));
-            urls.push(url);
-          }
+      } else if (response.status == 410) {
+        const data = await response.json();
+        toast.error(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
         })
-      );
+        setOtpGenerated(false);
 
-      setPdfUrls(urls);
-      setOtpIsVrified(true);
-      setFileHaveNo(false);
+      } else {
 
-      console.log(data);
+        toast.success("OTP verified successfully", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        const blob = await response.blob();
+
+        const data = await JSZip.loadAsync(blob);
+        console.log("The data will get:", data);
+
+        const urls = [];
+        await Promise.all(
+          Object.keys(data.files).map(async (filename) => {
+            const file = data.files[filename];
+            console.log(file);
+            if (filename.endsWith('.pdf')) {
+              const url = URL.createObjectURL(await file.async('blob'));
+              urls.push(url);
+            }
+          })
+        );
+
+        setPdfUrls(urls);
+        setOtpIsVrified(true);
+        setFileHaveNo(false);
+
+        // console.log(data);
+      }
 
     } catch (e) {
       console.log(e);
+
+      toast.error("Frontend error", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
     }
   }
 
@@ -134,7 +221,7 @@ const DoctorDashboard = () => {
                   Check documents of another patient
                 </button>
               </div>
-              {pdfUrls.length > 0 && (
+              {/* {pdfUrls.length > 0 && (
                 <div>
                   {pdfUrls.map((url, index) => (
                     <div key={`pdf_${index}`}>
@@ -150,19 +237,19 @@ const DoctorDashboard = () => {
                     </div>
                   ))}
                 </div>
-              )}
+              )} */}
               {/* <h1>hey</h1> */}
-              {/* {pdfUrls.length > 0 && (
+              {pdfUrls.length > 0 && (
                 <div className="flex flex-wrap justify-center">
                   {pdfUrls.map((url, index) => (
-                    <usePdfCard
+                    <UsePdfCard
                       key={`pdf_${index}`}
                       url={url}
                     />
                   ))}
-                  <h1>hey</h1>
+                  {/* <h1>hey</h1> */}
                 </div>
-              )} */}
+              )}
             </div>))
             :
             (<div className="max-w-md mx-auto">

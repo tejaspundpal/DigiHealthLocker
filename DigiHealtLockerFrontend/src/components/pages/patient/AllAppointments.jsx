@@ -70,7 +70,7 @@ const AllAppointments = () => {
                       <td className="border-b py-3 px-4">{appointment.doctorName?.firstname} {appointment.doctorName?.lastname}</td>
                       <td className="border-b py-3 px-4">{new Date(appointment.appointmentDate).getDate() + "/" + (parseInt(new Date(appointment.appointmentDate).getMonth()) + 1) + "/" + new Date(appointment.appointmentDate).getFullYear()}</td>
                       <td className="border-b py-3 px-4">{appointment.time}</td>
-                      <td className="border-b py-3 px-4">{appointment.problem}</td>
+                      <td className="border-b py-3 px-4 wrap-text">{appointment.problem}</td>
 
                       <td className="border-b py-3 px-4 underline text-sm hover:text-blue-600"><NavLink to={'appointmentdetails/' + appointment.appointmentId}>view more</NavLink></td>
                     </tr>

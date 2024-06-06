@@ -53,33 +53,35 @@ const DoctorAppointments = () => {
               </button></NavLink>
           </div>
           {
-            !appointmentsLoaded ? <ShimmerTable/> :
+            !appointmentsLoaded ? <ShimmerTable /> :
               appointmentsLoaded && doctorAllAppointments.length === 0 ? (<div><h1 className='text-xl mt-10 font-semibold text-gray-500'>No Appointments to show !</h1></div>) : (
-                <table className="min-w-4xl bg-white shadow-lg rounded mt-10">
-                <thead className='border'>
-                  <tr className="text-left  text-teal-600">
-                    {/* <th className="py-3 px-4">Appointment ID</th> */}
-                    <th className="py-3 px-4">Patient Name</th>
-                    <th className="py-3 px-4">Date</th>
-                    <th className="py-3 px-4">Time</th>
-                    <th className="py-3 px-4">Problem</th>
-                    {/* <th className="py-3 px-4">Status</th> */}
-                    <th className="py-3 px-4">Details</th>
-                  </tr>
-                </thead>
-                <tbody className="text-gray-700">
-                  {doctorAllAppointments.map(appointment => (
-                    <tr key={appointment._id}>
-                      {/* <td className="border-b py-3 px-4">{appointment.appointment_id}</td> */}
-                      <td className="border-b py-3 px-4">{appointment.patientName}</td>
-                      <td className="border-b py-3 px-4">{new Date(appointment.appointmentDate).getDate() + "/" + (parseInt(new Date(appointment.appointmentDate).getMonth()) + 1) + "/" + new Date(appointment.appointmentDate).getFullYear()}</td>
-                      <td className="border-b py-3 px-4">{appointment.time}</td>
-                      <td className="border-b py-3 px-4">{appointment.problem}</td>
-                      <td className="border-b py-3 px-4 underline text-sm hover:text-blue-600"><NavLink to={'appointmentdetails/' + appointment.appointmentId}>view more</NavLink></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>)
+                <div className='flex items-center justify-center'>
+                  <table className="w-full bg-white shadow-lg rounded mt-10">
+                    <thead className='border'>
+                      <tr className="text-left  text-teal-600">
+                        {/* <th className="py-3 px-4">Appointment ID</th> */}
+                        <th className="py-3 px-4 min-w-xs">Patient Name</th>
+                        <th className="py-3 px-4">Date</th>
+                        <th className="py-3 px-4">Time</th>
+                        <th className="py-3 px-4 min-w-xs">Problem</th>
+                        {/* <th className="py-3 px-4">Status</th> */}
+                        <th className="py-3 px-4">Details</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-gray-700">
+                      {doctorAllAppointments.map(appointment => (
+                        <tr key={appointment._id}>
+                          {/* <td className="border-b py-3 px-4">{appointment.appointment_id}</td> */}
+                          <td className="border-b border-l py-3 px-4 min-w-xs style={{overflowWrap: 'break-word'}}">{appointment.patientName}</td>
+                          <td className="border-b py-3 px-4">{new Date(appointment.appointmentDate).getDate() + "/" + (parseInt(new Date(appointment.appointmentDate).getMonth()) + 1) + "/" + new Date(appointment.appointmentDate).getFullYear()}</td>
+                          <td className="border-b py-3 px-4">{appointment.time}</td>
+                          <td className="border-b py-3 px-4 min-w-xs style={{overflowWrap: 'break-word'}}">{appointment.problem}</td>
+                          <td className="border-b border-r py-3 px-4 underline text-sm hover:text-blue-600"><NavLink to={'appointmentdetails/' + appointment.appointmentId}>view more</NavLink></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>)
           }
 
         </div>

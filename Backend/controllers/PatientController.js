@@ -3,7 +3,7 @@ const PatientModel = require('../models/PatientSchema');
 const CompnaeringPassword = require('../utils/ComparingPassword');
 const { gfsPromise } = require('../models/UploadingFiles');
 const archiver = require('archiver');
-
+const z = require("zod");
 const registrationpatient = async (req, res) => {
     try {
 
@@ -52,11 +52,15 @@ const loginOfPatient = async (req, res) => {
 
 
     } catch (e) {
-        console.log(e);
-        next({
-            status: 400,
-            message: "Login unsuccessful server side error",
-        })
+        console.log("The loging error we are at the top");
+        if (e instanceof z.ZodError) {
+            // Extract and send the Zod error messages
+            const errorMessages = e.issues.map(issue => issue.message);
+            return res.status(400).send({ result: false, message: "Validation error", errors: errorMessages });
+        }
+
+        console.log("Unexpected error:", e);
+        res.status(500).send({ result: false, message: "Server error" });
     }
 }
 

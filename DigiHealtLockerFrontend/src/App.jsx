@@ -1,6 +1,8 @@
 import React, { Suspense, lazy } from "react";
 import Home from "./components/Home";
 import { Route, BrowserRouter, Routes, } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Error from "./components/Error";
 import PatientLogin from "./components/pages/patient/PatientLogin"
@@ -60,6 +62,19 @@ function App() {
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+
+      />
     </>
   );
 }

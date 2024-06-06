@@ -13,7 +13,8 @@ const PatientDashboard = () => {
 
     const getThePdf = async () => {
         if (user) {
-            console.log(user.aadharcardnumber);
+
+            console.log("Addharcard of the login user is:", user.aadharcardnumber);
             const dataInput = {
                 aadharcardnumber: user.aadharcardnumber
             }
@@ -85,10 +86,10 @@ const PatientDashboard = () => {
                                         onLoadSuccess={({ numPages }) => setNumPages(numPages)}
                                     >
                                         {Array.from(new Array(numPages), (el, index) => (
-                                            <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+                                            <Page key={`page_${index + 1}`} pageNumber={1} />
                                         ))}
                                     </Document>
-                                    <p>Page {pageNumber} of {numPages}</p>
+                                    {/* <p>Page {pageNumber} of {numPages}</p> */}
                                 </div>
                             ))}
                         </div>

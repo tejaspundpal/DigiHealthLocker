@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 import { useAuth } from '../../../Store/AuthClient';
-import '../doctor/term.css'
+import '../doctor/term.css';
 
 const AppointmentDetails = () => {
   const { id } = useParams();
@@ -14,7 +14,7 @@ const AppointmentDetails = () => {
 
 
   const getData = async () => {
-     // Set loading to true while fetching data
+    // Set loading to true while fetching data
     try {
 
       if (user) {
@@ -89,8 +89,8 @@ const AppointmentDetails = () => {
                           <td className="pr-4 pt-2 pb-2">{appointment.time}</td>
                         </tr>
                         <tr className="border-b border-teal-600">
-                          <td className="font-semibold pr-4 pt-2 pb-2">Problem</td>
-                          <td className="pr-4 pt-2 pb-2">{appointment.problem}</td>
+                          <td className="font-semibold pr-4 pt-2 pb-2 ">Problem</td>
+                          <td className="pr-4 pt-2 pb-2 wrap-text">{appointment.problem}</td>
                         </tr>
                       </tbody>
                     </table>

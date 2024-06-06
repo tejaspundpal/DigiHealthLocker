@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import DoctorHeader from './DoctorHeader';
+import { toast } from 'react-toastify';
 
 function DoctorUpload() {
   // const [aadharNo, setAadharNo] = useState('');
@@ -37,6 +38,12 @@ function DoctorUpload() {
         body: formData
       });
       let outData = await respose.json();
+
+      if (respose.status == 200) {
+        toast.success(outData.message);
+      } else {
+        toast.error(outData.message);
+      }
 
       console.log(outData);
     } catch (e) {

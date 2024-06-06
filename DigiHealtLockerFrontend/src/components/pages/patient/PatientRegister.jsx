@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from '../../../assets/images/DigiHealthlockerlogo.png'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../Store/AuthClient';
+import { toast } from 'react-toastify';
 
 const PatientRegister = () => {
   const [userReg, setUserReg] = useState({
@@ -38,14 +39,40 @@ const PatientRegister = () => {
       const data = await response.json();
       if (!data.result) {
         console.log(data.message);
+        toast.error(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+
+        });
         return
       }
       console.log("Registrtion done");
+      toast.success("registration successful!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+
+      });
+
       console.log(data.message);
       storeTokenInLS(data.token);
 
       navigate("/patient/dashboard");
     } catch (e) {
+      toast.error("Frontend error", {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
       console.log(e);
     }
 

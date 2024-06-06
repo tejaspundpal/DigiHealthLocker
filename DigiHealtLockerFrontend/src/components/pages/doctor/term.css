@@ -37,3 +37,16 @@
         background-position: 0 50%, 0 calc(0% - 2px), 0 calc(100% + 2px), 50% 50%, 50% calc(0% - 2px), 50% calc(100% + 2px), 100% 50%, 100% calc(0% - 2px), 100% calc(100% + 2px);
     }
 }
+
+.wrap-text {
+    word-wrap: break-word;
+    /* Forcing long words to break and wrap */
+    overflow-wrap: break-word;
+    /* Same as above but for wider browser support */
+    white-space: normal;
+    /* Allow text to wrap normally */
+    max-width: 300px;
+    /* Adjust as needed to fit your layout */
+    text-overflow: ellipsis;
+    /* Optional: Add ellipsis (...) for overflow text */
+}

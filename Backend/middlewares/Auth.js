@@ -23,31 +23,35 @@ const authmiddleware = async (req, res, next) => {
         if (!decodedToken) {
             return res.status(405).send({ result: false, message: "Token is not valid" });
         }
-        console.log(decodedToken);
+        console.log("The data we are getting at the token value is:", decodedToken);
+        console.log("The adharcard number:", decodedToken.aadharcardnumber);
         // Determine user type based on payload content
         let userModel; // Declare variable to hold the appropriate model
-        if (decodedToken.registrationnumber) {
+        let searchQuery = {}; //query to search on the database 
+        if (await decodedToken.registrationnumber) {
             userModel = DoctoerModel; // Doctor data retrieval
-        } else if (decodedToken.aadharcardnumber) {
+            searchQuery = { registrationnumber: decodedToken.registrationnumber };
+        } else if (await decodedToken.aadharcardnumber) {
             userModel = PatientModel; // Patient data retrieval
+            searchQuery = { aadharcardnumber: decodedToken.aadharcardnumber };
+
         } else {
             // Handle unexpected payload scenario (optional)
             return res.status(400).send({ result: false, message: "Invalid user type in token" });
+
         }
 
+        console.log("The query of the final to find at the point:", searchQuery);
+
         // Fetch user data based on identified model
-        const userData = await userModel.findOne({
-            $or: [ // Search for user by registrationnumber (doctor) or aadharcard (patient)
-                { registrationnumber: decodedToken.registrationnumber },
-                { aadharcard: decodedToken.aadharcard }
-            ]
-        });
+        const userData = await userModel.findOne(searchQuery);
 
         if (!userData) {
             return res.status(404).send({ result: false, message: "User not found" });
         }
 
         // Attach relevant user data to request object (modify as needed)
+        console.log("THe user info after the decoding is:", userData);
         req.userData = userData
 
         next();

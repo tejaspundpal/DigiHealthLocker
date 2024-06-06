@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from '../../../assets/images/DigiHealthlockerlogo.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../Store/AuthClient';
+import { toast } from 'react-toastify';
 
 const PatientLogin = () => {
   const [userLog, setUserLog] = useState({
@@ -20,6 +21,7 @@ const PatientLogin = () => {
   const loginToWeb = async (e) => {
     e.preventDefault();
     try {
+      console.log("login data sending to the backend:", userLog);
       const resopnce = await fetch("/api/plogin", {
         method: "POST",
         headers: {
@@ -30,10 +32,31 @@ const PatientLogin = () => {
       const data = await resopnce.json();
       if (!data.result) {
         console.log(data.message);
+        toast.error(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+
+        });
         return;
       }
 
       console.log(data.message);
+      toast.success(data.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       storeTokenInLS(data.token);
       navigate("/patient/dashboard")
     } catch (e) {

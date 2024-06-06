@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import DoctorHeader from './DoctorHeader';
 import { useAuth } from '../../../Store/AuthClient';
+import { toast } from 'react-toastify';
 
 function AddAppointments() {
 
@@ -55,8 +56,43 @@ function AddAppointments() {
       //   return console.log()
       // }
       const data = await respose.json();
+      if (respose.status == 200) {
+        toast.success(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
+      } else {
+        toast.error(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
       console.log(data);
+
     } catch (e) {
+      toast.error("Frontend errors !", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       console.log(e);
     }
 
