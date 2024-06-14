@@ -27,11 +27,13 @@ export const AuthProvider = ({ children }) => {
 
     const storeTokenInLS = (serevrToken) => {
         setToken(serevrToken);
+        
         return localStorage.setItem("token", serevrToken);
 
     }
     const logoutUser = () => {
         setToken("");
+        setUser(null);
         return localStorage.removeItem("token");
     }
     const authenticatUser = async () => {

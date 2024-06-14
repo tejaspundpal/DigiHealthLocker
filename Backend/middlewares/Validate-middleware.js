@@ -10,9 +10,9 @@ const Validate = (schema) => async (req, res, next) => {
 
     } catch (e) {
         console.log(e);
+        res.status(400).send({ result: false, message: e.errors[0].message })
 
 
-        next({ message: e.errors[0].message })
 
     }
 }

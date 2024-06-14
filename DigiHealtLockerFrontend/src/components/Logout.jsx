@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 const Logout = () => {
     const { logoutUser } = useAuth();
     const [loggedOut, setLoggedOut] = useState(false);
+    const [isMounted, setIsMouted] = useState(true);
 
     useEffect(() => {
         let isMounted = true;
@@ -14,9 +15,11 @@ const Logout = () => {
                 await logoutUser();
                 if (isMounted) {
                     setLoggedOut(true);
+
                     toast.success("Logout successful", {
                         position: "bottom-right"
                     });
+                    return;
                 }
             } catch (error) {
                 if (isMounted) {
@@ -24,6 +27,8 @@ const Logout = () => {
                         position: "bottom-right"
                     });
                 }
+            } finally {
+                setIsMouted(false);
             }
         };
 

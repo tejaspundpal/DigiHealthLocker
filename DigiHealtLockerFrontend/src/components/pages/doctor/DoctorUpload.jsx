@@ -40,14 +40,42 @@ function DoctorUpload() {
       let outData = await respose.json();
 
       if (respose.status == 200) {
-        toast.success(outData.message);
+        toast.success(outData.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       } else {
-        toast.error(outData.message);
+        toast.error(outData.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
 
       console.log(outData);
     } catch (e) {
       console.log(e);
+      toast.error("Frontend Error", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
 
   }

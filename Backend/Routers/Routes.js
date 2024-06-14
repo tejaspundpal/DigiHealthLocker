@@ -4,7 +4,7 @@ const { temCotroller, Registrationdoctor, loginOfDoctor, uploadingFile, addAppoi
 const { registrationpatient, loginOfPatient, getAllPdfForPerson } = require('../controllers/PatientController');
 const Validate = require('../middlewares/Validate-middleware');
 const { VerificationRegisterrationschema, VerificationLoginschemaPatient, VerificationOfAllPdfs } = require('../validator/PatientValidatorSchemas');
-const { VerificationRegisterrationschemaDoctor, VerificationLoginschemaDoctor, VerificationAddAppointment, otpverificationZod, otpverificationAfterGenZod } = require('../validator/DoctorValidationSchemas');
+const { VerificationRegisterrationschemaDoctor, VerificationLoginschemaDoctor, VerificationAddAppointment, otpverificationZod, otpverificationAfterGenZod, uploadFileVerifcationToEnd } = require('../validator/DoctorValidationSchemas');
 const Auth = require('../middlewares/Auth');
 const { gfs, upload } = require('../models/UploadingFiles');
 const sizeLimitation = require('../middlewares/CheckSizeFile');

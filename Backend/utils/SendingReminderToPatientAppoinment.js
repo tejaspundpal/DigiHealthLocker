@@ -1,9 +1,8 @@
 const nodemailer = require("nodemailer");
 
-let sendOtpWithMail = async (email, otp) => {
+let sendReminderWithMail = async ({ email, appointmentDate, timeSlot, patientname, doctorname, address, phonenumber }) => {
     try {
-        console.log("Sending the otp to the mail");
-        console.log("The email and otp is", email, otp);
+
         // console.log(userfirstname, useremail);
 
 
@@ -20,9 +19,10 @@ let sendOtpWithMail = async (email, otp) => {
         let info = await transporter.sendMail({
             from: '"DigiHealthLocker" <roadster.com@zohomail.in>',
             to: email,
-            subject: `Otp from DigiHealthLocker for verification`,
+            subject: `Appointment Reminder - ${appointmentDate} at ${timeSlot}`,
             html: `<html>
                             <head>
+                                
                                 
                                 <style>
                                     body {
@@ -41,36 +41,33 @@ let sendOtpWithMail = async (email, otp) => {
                                     p {
                                         line-height: 1.6;
                                     }
-                                    .otp {
-                                        font-size: 24px;
-                                        font-weight: bold;
-                                        color: #007BFF;
-                                    }
                                 </style>
                             </head>
                             <body>
                                 <div class="container">
-                                    <h2>OTP Verification</h2>
-                                    <p>Dear user,</p>
-                                    <p>Your One-Time Password (OTP) for DigiHealthLocker is:</p>
-
-                                    <p class="otp"><b>${otp}</b></p>
-                                    <p>This OTP is valid for 10 minutes.</p>
+                                    <h2>Appointment Reminder</h2>
+                                    <p>Dear ${patientname},</p>
+                                    <p>This is a reminder for your appointment with Dr. ${doctorname}.</p>
+                                    <p><strong>Date:</strong> ${appointmentDate}</p>
+                                    <p><strong>Time:</strong> ${timeSlot}</p>
+                                    <p><strong>Location:</strong> ${address}</p>
+                                    <p>If you have any questions or need to reschedule, please contact hospital at ${phonenumber}.</p>
                                     <p>Thank you,</p>
                                     <p>The DigiHealthLocker Team</p>
                                 </div>
                             </body>
-                    </html>`
+                    </html>
+           `
         });
         console.log(info);
         return info;
     } catch (err) {
         console.log(err);
-        res.status(400).send({
-            success: "false",
-            message: "SMTP server side error",
-        })
+        // res.status(400).send({
+        //     success: "false",
+        //     message: "SMTP server side error",
+        // })
     }
 }
 
-module.exports = sendOtpWithMail;
+module.exports = sendReminderWithMail;

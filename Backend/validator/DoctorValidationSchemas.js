@@ -25,12 +25,9 @@ const VerificationLoginschemaDoctor = z.object({
 const VerificationAddAppointment = z.object({
     registrtionNumber: z.string({ required_error: "Registrati number of state medical council is required" }).min(3, " Length of the registration number must be minimum of length 3").trim().max(5, "The length of the registration number is can not be grater than 5"),
     patientAadharNo: z.string({ required_error: "Aadharcard number is required" }).trim().min(12, "Aadhaar number can not have lenght less than 12 digit").max(12, "Aadhaar number can not have lenght grater than 12 digit"),
-    appointmentDate: z.string({ required_error: "Appointmnet date is required" }),
-    timeSlot: z.string({ required_error: "Time slot is required" }),
-    problem: z.string({ required_error: "Health issue is required" }).trim().min(3, "Health issues number can not have lenght mininmum than 3 digit").max(500, "Health issues can not have lenght grater than 500 digit")
-
-
-
+    appointmentDate: z.string({ required_error: "Appointmnet date is required" }).trim().min(1, "Appointment date is required"),
+    timeSlot: z.string({ required_error: "Time slot is required" }).trim().min(1, "Time slot is required"),
+    problem: z.string({ required_error: "Health issue is required" }).trim().min(3, "Provide healt issue to add appointment").max(500, "Health issues can not have length grater than 500 digit")
 })
 
 const otpverificationAfterGenZod = z.object({
@@ -42,4 +39,8 @@ const otpverificationZod = z.object({
     patientAadharNo: z.string({ required_error: "Aadharcard number is required" }).trim().min(12, "Aadhaar number can not have lenght less than 12 digit").max(12, "Aadhaar number can not have lenght grater than 12 digit")
 })
 
-module.exports = { VerificationRegisterrationschemaDoctor, VerificationLoginschemaDoctor, VerificationAddAppointment, otpverificationZod, otpverificationAfterGenZod };
+const uploadFileVerifcationToEnd = z.object({
+    aadharcardnumber: z.string({ required_error: "Aadharcard number is required" }).trim().min(12, "Aadhaar number can not have lenght less than 12 digit").max(12, "Aadhaar number can not have lenght grater than 12 digit")
+})
+
+module.exports = { VerificationRegisterrationschemaDoctor, VerificationLoginschemaDoctor, VerificationAddAppointment, otpverificationZod, otpverificationAfterGenZod, uploadFileVerifcationToEnd };

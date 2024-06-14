@@ -45,17 +45,49 @@ const DoctorRegister = () => {
           return console.log("There is no data after respose");
         }
         storeTokenInLS(data.token);
+        toast.success(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
 
+        });
         navigate("/doctor/dashboard");
 
       }
+      toast.error(data.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
 
+      });
       console.log("The resposnce will be:", resopnce);
       console.log("The data is:", data);
 
 
+
     } catch (err) {
       console.log(err);
+      toast.error("Frontend Error", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+
+      });
     }
   }
 
@@ -94,11 +126,11 @@ const DoctorRegister = () => {
                   <input type="number" id="regNo" name="registrationnumber" value={userReg.regNo} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your registration number" />
                 </div>
                 <div>
-                  <label htmlFor="regYear" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Registration year</label>
+                  <label htmlFor="regYear" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Registration Year</label>
                   <input type="text" id="regYear" name="yearofregistration" value={userReg.regYear} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your registration year" />
                 </div>
                 <div>
-                  <label htmlFor="stateCouncil" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State Medical Council</label>
+                  <label htmlFor="stateCouncil" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State Medical Council Name</label>
                   <input type="text" id="stateCouncil" name="statemedicalcouncil" value={userReg.stateCouncil} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your state medical council" />
                 </div>
                 <div>
@@ -120,11 +152,14 @@ const DoctorRegister = () => {
               </div>
 
               <div className="flex items-start">
-                <div className="flex items-center h-5">
+                {/* <div className="flex items-center h-5">
                   <input id="terms" aria-describedby="terms" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-teal-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-teal-600 dark:ring-offset-gray-800" required="" />
-                </div>
+                </div> */}
                 <div className="ml-3 text-sm">
-                  <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">I accept the <a className="font-medium text-teal-600 hover:underline dark:text-teal-500" href="#">Terms and Conditions</a></label>
+                  <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-500">
+                    <span className="text-red-600 text-lg text-xl">* </span>
+                  </label>
+                  <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300"><strong>Please provide accurate Full Name(First,Middle,Last), Registration Number, Registration Year, and State Medical Council Name as per the Medical Council  website, as we will validate this data with the Medical Council</strong></label>
                 </div>
               </div>
 
@@ -136,8 +171,8 @@ const DoctorRegister = () => {
             </form>
           </div>
         </div>
-      </div>
-    </section>
+      </div >
+    </section >
   );
 };
 

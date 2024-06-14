@@ -14,9 +14,9 @@ const user = {
 const navigation = [
   { name: 'Dashboard', href: '/patient/dashboard', current: true },
   { name: 'Appointments', href: '/patient/appointments', current: false },
-  { name: 'Insurance', href: '/patient/insurance', current: false },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Reports', href: '/patient/report', current: false },
+  // { name: 'Insurance', href: '/patient/insurance', current: false },
+  // { name: 'Calendar', href: '#', current: false },
+  // { name: 'Reports', href: '/patient/report', current: false },
 ]
 const userNavigation = [
   // { name: 'Your Profile', href: '/patient/profile' },
@@ -129,7 +129,7 @@ export default function PatientHeader() {
                     key={item.name}
                     as="a"
                     href={item.href}
-                    className={ 'text-teal-900 hover:bg-teal-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'
+                    className={'text-teal-900 hover:bg-teal-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium'
                     }
                     aria-current={item.current ? 'page' : undefined}
                   >

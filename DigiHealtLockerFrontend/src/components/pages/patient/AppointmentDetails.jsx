@@ -18,9 +18,11 @@ const AppointmentDetails = () => {
     try {
 
       if (user) {
-        const listOfAppointments = user.appointmnets
+        const listOfAppointments = user.appointmnets;
+        console.log("The total list is: ", listOfAppointments);
 
         const foundAppointment = listOfAppointments.find(appointment => appointment.appointmentId === id);
+
         setAppointment(foundAppointment);
 
       }

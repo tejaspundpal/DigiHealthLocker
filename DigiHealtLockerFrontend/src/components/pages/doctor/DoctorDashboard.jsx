@@ -13,7 +13,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const DoctorDashboard = () => {
   let { user } = useAuth();
   const patientAadharNoRef = useRef('');
-  const otpRef = useRef('');
+  const otpRef = useRef(null);
   const [otpGenerated, setOtpGenerated] = useState(false);
   const [otpIsVrified, setOtpIsVrified] = useState(false);
   const [addharCard, setAadharNo] = useState();
@@ -51,7 +51,9 @@ const DoctorDashboard = () => {
           progress: undefined,
           theme: "light",
         });
+
         setOtpGenerated(true);
+
       } else {
         toast.error(data.message, {
           position: "bottom-right",
@@ -80,10 +82,11 @@ const DoctorDashboard = () => {
     }
   }
   const verifyOtp = async () => {
+
     try {
       const formData = {
         otp: parseInt(otpRef.current.value, 10),
-        patientAadharNo: addharCard
+        patientAadharNo: addharCard.toString()
       };
       const response = await fetch("/api/votp", {
         method: "POST",
@@ -162,7 +165,7 @@ const DoctorDashboard = () => {
             console.log(file);
             if (filename.endsWith('.pdf')) {
               const url = URL.createObjectURL(await file.async('blob'));
-              urls.push(url);
+              urls.push({ url, filename });
             }
           })
         );
@@ -241,10 +244,10 @@ const DoctorDashboard = () => {
               {/* <h1>hey</h1> */}
               {pdfUrls.length > 0 && (
                 <div className="flex flex-wrap justify-center">
-                  {pdfUrls.map((url, index) => (
+                  {pdfUrls.map((pdf, index) => (
                     <UsePdfCard
                       key={`pdf_${index}`}
-                      url={url}
+                      url={pdf.url} filename={pdf.filename}
                     />
                   ))}
                   {/* <h1>hey</h1> */}
@@ -259,6 +262,7 @@ const DoctorDashboard = () => {
                   type="number"
                   name='otp'
                   id="otp"
+                  placeholder="Enter OTP"
                   ref={otpRef}
                   className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-teal-500"
                   required
@@ -280,9 +284,10 @@ const DoctorDashboard = () => {
               <div className="mb-4">
                 <label htmlFor="aadharNo" className="block text-gray-700">Patient Aadhar No</label>
                 <input
-                  type="text"
+                  type="number"
                   name='aadharcardnumber'
                   id="aadharNo"
+                  placeholder="Enter Aadharcard Number"
                   ref={patientAadharNoRef}
                   className="w-full mt-1 p-2 border border-gray-300 rounded focus:outline-none focus:border-teal-500"
                   required

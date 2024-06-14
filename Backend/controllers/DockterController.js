@@ -7,8 +7,10 @@ const generateotp = require('../utils/OtpGeneration');
 const otp = require('../models/otp');
 const sendOtpWithMail = require('../utils/SendingMail');
 const notSendingMailUntilOneMinute = require('../utils/regenerationAftermin');
+const sendMessageToUserOnDateAppointment = require("../utils/shedulingTheJobOfNotification");
 const { gfsPromise } = require('../models/UploadingFiles');
 const archiver = require('archiver');
+
 
 const temCotroller = async (req, res) => {
     try {
@@ -78,7 +80,8 @@ const loginOfDoctor = async (req, res) => {
 
 
     } catch (e) {
-        console.log(e);
+        console.log("In the catch", e);
+
         next({
             status: 400,
             message: "Login unsuccessful server side error",
@@ -90,11 +93,14 @@ const uploadingFile = async (req, res) => {
     try {
 
         if (!req.file) {
-            return res.status(400).send({ result: false, message: "File not found at backend" })
+            return res.status(400).send({ result: false, message: "Select file to upload" })
         }
         if (!req.body.aadharcardnumber) {
-            return res.status(400).send({ result: false, message: "Aadharcardnumber not found" });
+            return res.status(400).send({ result: false, message: "Enter Addharcard Number" });
 
+        }
+        if (req.body.aadharcardnumber.length != 12) {
+            return res.status(400).send({ result: false, message: "Provide Valid Addhar Card Number" });
         }
 
         const userFileUpload = await PatientModel.findOne({ aadharcardnumber: req.body.aadharcardnumber });
@@ -145,9 +151,10 @@ const addAppointment = async (req, res) => {
         if (!req.body) {
             return res.status(404).send({ result: false, message: "Enter all data required for the appointment" });
         }
-        const { registrtionNumber, patientAadharNo, hospitalName, department, appointmentDate, timeSlot, problem } = req.body;
+        console.log("The body getting after adding:", req.body);
+        const { registrtionNumber, patientAadharNo, department, appointmentDate, timeSlot, problem } = req.body;
 
-
+        console.log("The departmenr is at the top:", department);
         const userToFindAppointmnet = await PatientModel.findOne({ aadharcardnumber: patientAadharNo });
 
         if (!userToFindAppointmnet) {
@@ -189,6 +196,9 @@ const addAppointment = async (req, res) => {
 
         console.log(updatePaient);
 
+        // Sheduling the job to send the message to the user
+        // userToFindAppointmnet.fullname.firstname;
+        sendMessageToUserOnDateAppointment({ appointmentDate, timeSlot, patientname: userToFindAppointmnet.fullname.firstname, doctorname: upadateDoctor.fullname.firstname, address: upadateDoctor.addressofhospital, phonenumber: upadateDoctor.phonenumber, email: userToFindAppointmnet.email });
         res.status(200).send({ result: true, message: "Appoinment is added" });
 
 
@@ -279,7 +289,7 @@ const genareteOtp = async (req, res) => {
 
         const mailInfo = await sendOtpWithMail(patientpresent.email, g_opt);
         console.log("The mail info is", mailInfo);
-        res.status(200).send({ result: true, message: "Opt is send sucessfully", "otp": g_opt });
+        res.status(200).send({ result: true, message: "Otp is send sucessfully", otp: g_opt });
 
         // console.log("The number we want", aadharcardnumber);
 

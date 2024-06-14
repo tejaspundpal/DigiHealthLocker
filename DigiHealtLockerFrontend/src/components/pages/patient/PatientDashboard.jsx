@@ -3,6 +3,7 @@ import PatientHeader from './PatientHeader'
 import { useAuth } from '../../../Store/AuthClient';
 import { Document, Page, pdfjs } from 'react-pdf';
 import UsePdfCard from "../../../utils/UsePdfCard";
+import "../../pages/doctor/term.css"
 import JSZip from 'jszip';
 
 
@@ -10,6 +11,7 @@ const PatientDashboard = () => {
     let { user } = useAuth();
     const [noFile, setFileHaveNo] = useState(false);
     const [pdfUrls, setPdfUrls] = useState([]);
+    const [isLoading, setLoading] = useState(true);
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -38,16 +40,17 @@ const PatientDashboard = () => {
             const blob = await resposen.blob();
 
             const data = await JSZip.loadAsync(blob);
-            console.log("The data will get:", data);
+            console.log("The data will get when we decompress the data:", data);
 
             const urls = [];
             await Promise.all(
                 Object.keys(data.files).map(async (filename) => {
                     const file = data.files[filename];
-                    console.log(file);
+                    console.log("The files we get in struture:", file);
+                    console.log("The url we cretaing is:", await file.async('blob'));
                     if (filename.endsWith('.pdf')) {
                         const url = URL.createObjectURL(await file.async('blob'));
-                        urls.push(url);
+                        urls.push({ url, filename });
                     }
                 })
             );
@@ -66,21 +69,30 @@ const PatientDashboard = () => {
 
 
     }
-    useEffect(() => {
-        getThePdf();
-    }, []);
+
 
     useEffect(() => {
-        getThePdf();
+        const fetchData = async () => {
+            if (user) {
+                setPdfUrls([]);
+                await getThePdf();
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+
+
+        // return () => setLoading(false);
     }, [user]);
 
     return (
         <>
             <PatientHeader />
             {
-                noFile ? (<h1>There is no files to show</h1>) : (<div>
+                isLoading ? (<div>Loading...</div>) : (noFile ? (<h1>There is no files to show</h1 >) : (<div>
                     {pdfUrls.length > 0 && (
-                        <div>
+                        <div className="pdf-document">
                             {/* {pdfUrls.map((url, index) => (
                                 <div key={`pdf_${index}`}>
                                     <Document
@@ -95,14 +107,14 @@ const PatientDashboard = () => {
                                 </div>
                             ))} */}
 
-                            {pdfUrls.map((url, index) => (
+                            {pdfUrls.map((pdf, index) => (
                                 <UsePdfCard key={`pdf_${index}`}
-                                    url={url}
+                                    url={pdf.url} filename={pdf.filename}
                                 />
                             ))}
                         </div>
                     )}
-                </div>)
+                </div>))
             }
         </>
     )

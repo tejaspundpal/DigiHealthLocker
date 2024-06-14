@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from '../../../assets/images/DigiHealthlockerlogo.png';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 import { useAuth } from '../../../Store/AuthClient';
 
 const DoctorLogin = () => {
@@ -43,16 +44,45 @@ const DoctorLogin = () => {
 
         storeTokenInLS(data.token);
 
-
+        toast.success(data.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
 
         console.log("The data we needed", data);
         navigate("/doctor/dashboard");
+        return;
       }
+      toast.error(data.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+
+      });
     } catch (err) {
-      if (err instanceof z.ZodError) {
-        console.log("The error we are finding:", err.issues);
-      }
       console.log(err);
+      toast.error("Frontend Error", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+
+      });
     }
   }
 
@@ -76,17 +106,7 @@ const DoctorLogin = () => {
                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                 <input type="password" name="password" id="password" placeholder="••••••••" value={doctorLog.password} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-teal-500 dark:focus:border-teal-500" required="" />
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-teal-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-teal-600 dark:ring-offset-gray-800" required="" />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
-                  </div>
-                </div>
-                <a href="#" className="text-sm font-medium text-teal-600 hover:underline dark:text-teal-500">Forgot password?</a>
-              </div>
+
               <button type="submit" className="mt-3 w-full text-white bg-teal-600 hover:bg-teal-700 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800" onClick={singToBack}>Sign in</button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don't have an account yet? <NavLink to="/doctor/register" className="font-medium text-teal-600 hover:underline dark:text-teal-500">Sign up</NavLink>
