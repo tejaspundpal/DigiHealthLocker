@@ -23,6 +23,7 @@ import DoctorProfile from "./components/pages/doctor/DoctorProfile";
 import DoctorUpload from "./components/pages/doctor/DoctorUpload";
 import AddAppointment from "./components/pages/doctor/AddAppointment";
 import DoctorAppointmentDetails from "./components/pages/doctor/DoctorAppointmentDetails";
+import ChatBot from "./components/pages/patient/ChatBot";
 import Logout from "./components/Logout";
 // const PatientLogin = lazy(() => import("./components/pages/patient/PatientLogin"));
 // const PatientRegister = lazy(() => import("./components/pages/patient/PatientRegister"));
@@ -59,6 +60,7 @@ function App() {
           <Route path="/doctor/profile" element={<DoctorProfile />} />
           <Route path="/doctor/upload" element={<DoctorUpload />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/patient/chatbot" element={<ChatBot />} />
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>

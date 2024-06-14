@@ -14,7 +14,7 @@ const user = {
 const navigation = [
   { name: 'Dashboard', href: '/patient/dashboard', current: true },
   { name: 'Appointments', href: '/patient/appointments', current: false },
-  // { name: 'Insurance', href: '/patient/insurance', current: false },
+  { name: 'ChatBot', href: '/patient/chatbot', current: false },
   // { name: 'Calendar', href: '#', current: false },
   // { name: 'Reports', href: '/patient/report', current: false },
 ]

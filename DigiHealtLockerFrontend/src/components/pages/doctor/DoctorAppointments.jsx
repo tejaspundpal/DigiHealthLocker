@@ -75,7 +75,7 @@ const DoctorAppointments = () => {
                           <td className="border-b border-l py-3 px-4 min-w-xs style={{overflowWrap: 'break-word'}}">{appointment.patientName}</td>
                           <td className="border-b py-3 px-4">{new Date(appointment.appointmentDate).getDate() + "/" + (parseInt(new Date(appointment.appointmentDate).getMonth()) + 1) + "/" + new Date(appointment.appointmentDate).getFullYear()}</td>
                           <td className="border-b py-3 px-4">{appointment.time}</td>
-                          <td className="border-b py-3 px-4 min-w-xs style={{overflowWrap: 'break-word'}}">{appointment.problem}</td>
+                          <td className="border-b py-3 px-4 min-w-xs wrap-text style={{overflowWrap: 'break-word'}}">{appointment.problem}</td>
                           <td className="border-b border-r py-3 px-4 underline text-sm hover:text-blue-600"><NavLink to={'appointmentdetails/' + appointment.appointmentId}>view more</NavLink></td>
                         </tr>
                       ))}

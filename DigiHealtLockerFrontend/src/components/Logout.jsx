@@ -6,16 +6,16 @@ const Logout = () => {
     const { logoutUser } = useAuth();
     const [loggedOut, setLoggedOut] = useState(false);
     const [isMounted, setIsMouted] = useState(true);
-
+    // let isMounted = true;
     useEffect(() => {
-        let isMounted = true;
+
 
         const performLogout = async () => {
             try {
                 await logoutUser();
                 if (isMounted) {
                     setLoggedOut(true);
-
+                    setIsMouted(false);
                     toast.success("Logout successful", {
                         position: "bottom-right"
                     });
@@ -35,7 +35,7 @@ const Logout = () => {
         performLogout();
 
         return () => {
-            isMounted = false;
+            setIsMouted(false);
         };
     }, [logoutUser]);
 
