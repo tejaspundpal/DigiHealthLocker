@@ -74,10 +74,10 @@ const AppointmentDetails = () => {
                           <td className="font-semibold pr-4 pt-2 pb-2">Hospital Name</td>
                           <td className="pr-4 pt-2 pb-2">{appointment.hospitalName}</td>
                         </tr>
-                        <tr className="border-b border-teal-600">
+                        {/* <tr className="border-b border-teal-600">
                           <td className="font-semibold pr-4 pt-2 pb-2">Department</td>
                           <td className="pr-4 pt-2 pb-2">{appointment.department}</td>
-                        </tr>
+                        </tr> */}
                         <tr className="border-b border-teal-600">
                           <td className="font-semibold pr-4 pt-2 pb-2">Doctor Name</td>
                           <td className="pr-4 pt-2 pb-2">{appointment.doctorName?.firstname}  {appointment.doctorName?.lastname}</td>

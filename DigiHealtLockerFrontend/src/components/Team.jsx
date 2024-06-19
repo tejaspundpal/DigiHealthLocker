@@ -4,18 +4,28 @@ const people = [
     {
         name: 'Prathamesh Patil',
         role: 'Developer',
-        imageUrl: 'https://media.licdn.com/dms/image/D5603AQFxB51yEVg0XA/profile-displayphoto-shrink_100_100/0/1709230732551?e=1715212800&v=beta&t=Vlvj2cMNkOW8v4DY_afTHfjKZmDie703R5UvMwWaDDM'
+        imageUrl: '../../src/assets/images/WhatsApp Image 2024-06-15 at 09.33.53_b9af43f8.jpg'
     },
     {
         name: 'Tejas Pundpal',
         role: 'Developer',
         imageUrl:
-            'https://media.licdn.com/dms/image/D5603AQFJr_J4S32dgw/profile-displayphoto-shrink_100_100/0/1695177682396?e=1714003200&v=beta&t=8TRhBdOkD7vu68qIstHCCUgn0i4VkRe7Yqn4YEsSokA',
+            '../../src/assets/images/WhatsApp Image 2024-06-15 at 10.09.39_e8b3528c.jpg',
     },
     {
         name: 'Vedang Surnis',
         role: 'Developer',
-        imageUrl: 'https://media.licdn.com/dms/image/D5603AQHe8wFGNKOUXw/profile-displayphoto-shrink_100_100/0/1711101960512?e=1717632000&v=beta&t=R_YBk3Wxsh6evmkTJrT0s6sDVFQJOpZkfo4Gu9evN48'
+        imageUrl: '../../src/assets/images/IMG_20200812_111652653_4-min-Resized-proper.jpg'
+    },
+    {
+        name: 'kartik Thombare',
+        role: 'Developer',
+        imageUrl: '../../src/assets/images/WhatsApp Image 2024-06-15 at 09.32.47_204009dc.jpg'
+    },
+    {
+        name: 'Purshottam Rajpurohit',
+        role: 'Developer',
+        imageUrl: '../../src/assets/images/WhatsApp Image 2024-06-15 at 09.43.03_2956fa81.jpg'
     },
 
 ]

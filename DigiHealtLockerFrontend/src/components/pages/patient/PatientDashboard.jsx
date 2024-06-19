@@ -5,6 +5,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import UsePdfCard from "../../../utils/UsePdfCard";
 import "../../pages/doctor/term.css"
 import JSZip from 'jszip';
+import { ShimmerPdfCard } from '../../../utils/Shimmer';
 
 
 const PatientDashboard = () => {
@@ -57,17 +58,7 @@ const PatientDashboard = () => {
 
             setFileHaveNo(false);
             setPdfUrls(urls);
-
-
-
-
         }
-
-
-
-
-
-
     }
 
 
@@ -90,7 +81,7 @@ const PatientDashboard = () => {
         <>
             <PatientHeader />
             {
-                isLoading ? (<div>Loading...</div>) : (noFile ? (<h1>There is no files to show</h1 >) : (<div>
+                isLoading ? (<ShimmerPdfCard/>) : (noFile ? (<h1>There is no files to show</h1 >) : (<div>
                     {pdfUrls.length > 0 && (
                         <div className="pdf-document">
                             {/* {pdfUrls.map((url, index) => (

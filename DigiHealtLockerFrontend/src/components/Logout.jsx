@@ -16,9 +16,9 @@ const Logout = () => {
                 if (isMounted) {
                     setLoggedOut(true);
                     setIsMouted(false);
-                    toast.success("Logout successful", {
-                        position: "bottom-right"
-                    });
+                    // toast.success("Logout successful", {
+                    //     position: "bottom-right"
+                    // });
                     return;
                 }
             } catch (error) {

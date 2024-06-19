@@ -9,7 +9,7 @@ const user = {
   name: 'Tejas',
   email: 'tejas@gmail.com',
   imageUrl:
-    'https://media.licdn.com/dms/image/D5603AQFJr_J4S32dgw/profile-displayphoto-shrink_100_100/0/1695177682396?e=1714003200&v=beta&t=8TRhBdOkD7vu68qIstHCCUgn0i4VkRe7Yqn4YEsSokA',
+    'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-vector%2Fuser-icon&psig=AOvVaw0yilBJh2aJauC0206tztw3&ust=1718517770390000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCND92tr33IYDFQAAAAAdAAAAABAE',
 }
 const navigation = [
   { name: 'Dashboard', href: '/patient/dashboard', current: true },
