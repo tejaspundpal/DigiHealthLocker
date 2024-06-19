@@ -145,7 +145,5 @@ Open your browser and go to the following URL to access the website:
 Ensure that MongoDB is installed and running on your machine.
 
 ----
-----
-----
 
 This documentation should help you get DigiHealthLocker up and running on your local machine. For further assistance, please refer to the project's main repository or contact the project maintainers.
